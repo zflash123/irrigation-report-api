@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $table->id();
-        $table->foreign('segment_id')->references('id')->on('segments');
-        $table->foreign('user_id')->references('id')->on('users');
-        $table->foreign('status_id')->references('id')->on('status');
-        $table->string('no_ticket');
-        $table->string('note');
-        $table->string('maintenance_by');
-        $table->string('survey_status');
-        $table->timestamps();
+        Schema::create('report_list', function (Blueprint $table) {
+            $table->id();
+            $table->foreign('segment_id')->references('id')->on('segments');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('status_id')->references('id')->on('status');
+            $table->string('no_ticket');
+            $table->string('note');
+            $table->string('maintenance_by');
+            $table->string('survey_status');
+            $table->timestamps();
+        });
     }
 
     /**

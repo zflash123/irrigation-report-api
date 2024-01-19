@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $table->id();
-        $table->foreign('irrigation_id')->references('id')->on('irrigations');
-        $table->string('name');
-        $table->string('length');
-        $table->lineString('geom');
-        $table->point('center_point');
-        $table->timestamps();
+        Schema::create('segments', function (Blueprint $table) {
+            $table->id();
+            $table->foreign('irrigation_id')->references('id')->on('irrigations');
+            $table->string('name');
+            $table->string('length');
+            $table->lineString('geom');
+            $table->point('center_point');
+            $table->timestamps();
+        });
     }
 
     /**

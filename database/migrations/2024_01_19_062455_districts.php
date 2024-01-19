@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $table->id();
-        $table->foreign('city_id')->references('id')->on('city');
-        $table->string('name');
-        $table->timestamps();
+        Schema::create('districts', function (Blueprint $table) {
+            $table->id();
+            $table->foreign('city_id')->references('id')->on('city');
+            $table->string('name');
+            $table->timestamps();
+        });
     }
 
     /**

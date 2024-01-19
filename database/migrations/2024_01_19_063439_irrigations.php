@@ -11,17 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $table->id();
-        $table->foreign('district_id')->references('id')->on('districts');
-        $table->foreign('sub_district_id')->references('id')->on('sub_districts');
-        $table->string('length');
-        $table->string('width');
-        $table->lineString('geom');
-        $table->string('type');
-        $table->string('name');
-        $table->string('condition');
-        $table->string('canal');
-        $table->timestamps();
+        Schema::create('irrigations', function (Blueprint $table) {
+            $table->id();
+            $table->foreign('district_id')->references('id')->on('districts');
+            $table->foreign('sub_district_id')->references('id')->on('sub_districts');
+            $table->string('length');
+            $table->string('width');
+            $table->lineString('geom');
+            $table->string('type');
+            $table->string('name');
+            $table->string('condition');
+            $table->string('canal');
+            $table->timestamps();
+        });
     }
 
     /**
