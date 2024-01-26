@@ -12,10 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sub_districts', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
             $table->foreignUuid('district_id');
             $table->foreign('district_id')->references('id')->on('districts');
             $table->string('name');
+            $table->string('type');
             $table->timestamps();
         });
     }
