@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('segments', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('irrigation_id');
+            $table->uuid('id');
+            $table->foreignUuid('irrigation_id');
             $table->foreign('irrigation_id')->references('id')->on('irrigations');
             $table->string('name');
             $table->string('length');

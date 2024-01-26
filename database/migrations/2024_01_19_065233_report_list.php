@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('report_list', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('segment_id');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('status_id');
+            $table->uuid('id');
+            $table->foreignUuid('segment_id');
+            $table->foreignUuid('user_id');
+            $table->foreignUuid('status_id');
             $table->foreign('segment_id')->references('id')->on('segments');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('status_id')->references('id')->on('status');

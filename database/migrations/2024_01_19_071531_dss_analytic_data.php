@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('dss_analytic_data', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('report_list_id');
+            $table->uuid('id');
+            $table->foreignUuid('report_list_id');
             $table->foreign('report_list_id')->references('id')->on('report_list');
             $table->float('score');
             $table->timestamps();

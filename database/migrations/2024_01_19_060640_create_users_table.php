@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('urole_id');
+            $table->uuid('id');
+            $table->foreignUuid('urole_id');
             $table->foreign('urole_id')->references('id')->on('user_roles');
             $table->string('username')->unique();
             $table->string('email')->unique();
