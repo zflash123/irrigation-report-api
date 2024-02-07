@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AppController;
+use App\Http\Controllers\Auth\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,11 @@ Route::post('/report', [AppController::class, 'report']);
 Route::get('/segments-by-user-id', [AppController::class, 'segments_by_user_id']);
 
 Route::get('/user-data', [AppController::class, 'user_data']);
+
+Route::prefix('auth')->middleware('api')->group(function () {
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('register', [AuthController::class, 'register']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::post('me', [AuthController::class, 'me']);
+});
