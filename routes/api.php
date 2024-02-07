@@ -15,9 +15,11 @@ use App\Http\Controllers\AppController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('/register', [UserController::class, 'register']);
+
+Route::post('/login', [UserController::class, 'login']);
+
+Route::post('/reset-password', [UserController::class, 'reset_password']);
 
 Route::get('/all-segments', [AppController::class, 'all_segment']);
 
