@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Map\IrrigationSectionController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,8 +34,11 @@ Route::get('/user-data', [AppController::class, 'user_data']);
 
 Route::prefix('auth')->middleware('api')->group(function () {
     Route::post('login', [AuthController::class, 'login']);
+    Route::get('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
 });
+
+include __DIR__ . '/roles/admin.php';

@@ -60,8 +60,6 @@ class AuthController extends Controller
         if ($user) {
             return response()->json(['message' => 'Pendaftaran Berhasil']);
         } else {
-            Log::error('Pendaftaran Gagal');
-            return $user;
             return response()->json(['message' => 'Pendaftaran Gagal']);
         };
     }
