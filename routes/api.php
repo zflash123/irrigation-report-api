@@ -24,7 +24,7 @@ Route::post('/login', [UserController::class, 'login']);
 
 Route::post('/reset-password', [UserController::class, 'reset_password']);
 
-Route::get('/all-segments', [AppController::class, 'all_segment']);
+Route::get('/close-segments', [AppController::class, 'close_segments']);
 
 Route::post('/report', [AppController::class, 'report']);
 

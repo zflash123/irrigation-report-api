@@ -9,10 +9,21 @@ use Illuminate\Support\Str;
 
 class AppController extends Controller
 {
-    function all_segment() {
-        $all_segment = DB::table('master.irrigations_segmen')->where('id', '0000c2b6-7984-4f1f-9385-dcf6e53743a0')->get();
-
-        return response()->json($all_segment);
+    function close_segments(Request $request) {
+        $latitude = (float)$request->input('lat');
+        $longitude = (float)$request->input('long');
+        $close_segment = DB::select("SELECT
+            id,
+            name,
+            geojson,
+            public.ST_Distance(geom, public.geography(public.ST_SetSRID(public.ST_MakePoint($longitude, $latitude), 4326))) AS distance
+        FROM
+            master.irrigations_segmen
+        WHERE
+            public.ST_Distance(geom, public.geography(public.ST_SetSRID(public.ST_MakePoint($longitude, $latitude), 4326)))<=200
+        ORDER BY
+            distance;");
+        return response()->json($close_segment);
     }
     function report(Request $request) {
         $segment_id = $request->segment_id;
