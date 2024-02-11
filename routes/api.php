@@ -34,11 +34,18 @@ Route::get('/user-data', [AppController::class, 'user_data']);
 
 Route::prefix('auth')->middleware('api')->group(function () {
     Route::post('login', [AuthController::class, 'login']);
-    Route::get('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
 });
+
+Route::get('login', function () {
+    return response()->json([
+        'statusCode' => 401,
+        'message' => 'Invalid Token',
+        'errors' => 'E_UNAUTHORIZED_ACCESS'
+    ], 401);
+})->name('login');
 
 include __DIR__ . '/roles/admin.php';
