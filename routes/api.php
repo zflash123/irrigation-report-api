@@ -28,6 +28,8 @@ Route::get('/close-segments', [AppController::class, 'close_segments']);
 
 Route::post('/report', [AppController::class, 'report']);
 
+Route::get('/report-detail/{id}', [AppController::class, 'report_detail']);
+
 Route::get('/segments-by-user-id', [AppController::class, 'segments_by_user_id']);
 
 Route::get('/user-data', [AppController::class, 'user_data']);

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Segment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Models\ReportList;
 
 class AppController extends Controller
 {
@@ -25,16 +26,17 @@ class AppController extends Controller
             distance;");
         return response()->json($close_segment);
     }
+
     function report(Request $request) {
         $segment_id = $request->segment_id;
         $no_ticket = "ticket_".Str::random(100);
         $note = $request->note;
         $damage_severity = $request->damage_severity;
-        $photo = "report_".Str::random(100);
+        $photo = "report_photo_".Str::random(100);
         DB::table('report.report_list')->insert([
             'segment_id' => $segment_id,
-            'user_id' => 'da9c0989-1f98-4f1c-9f66-571762074fba',
-            'status_id' => '623fb9aa-5d45-4657-b315-2a6c89d725b6',
+            'user_id' => '748c90a1-25ba-4fc1-a9f9-63879cf4fe90',
+            'status_id' => 'c78b942c-2fd8-4876-b6d6-07933d7326be',
             'no_ticket' => $no_ticket,
             'note' => $note,
             'maintenance_by' => null,
@@ -43,5 +45,10 @@ class AppController extends Controller
             'photo' => $photo,
         ]);
         return response()->json($request->all());
+    }
+
+    function report_detail($id) {
+        $reportList = ReportList::where('id', $id)->first();
+        return response()->json($reportList);
     }
 }
