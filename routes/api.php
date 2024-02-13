@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AppController;
+use App\Http\Controllers\Report\ReportController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Map\IrrigationSectionController;
 use App\Http\Controllers\UserController;
@@ -26,9 +27,9 @@ Route::post('/reset-password', [UserController::class, 'reset_password']);
 
 Route::get('/close-segments', [AppController::class, 'close_segments']);
 
-Route::post('/report', [AppController::class, 'report']);
+Route::post('/report', [ReportController::class, 'report']);
 
-Route::get('/report-detail/{id}', [AppController::class, 'report_detail']);
+Route::get('/report-detail/{id}', [ReportController::class, 'report_detail']);
 
 Route::get('/segments-by-user-id', [AppController::class, 'segments_by_user_id']);
 
