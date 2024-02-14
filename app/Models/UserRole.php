@@ -9,6 +9,10 @@ class UserRole extends Model
 {
     use HasFactory;
 
+    protected $table = 'user.user_roles';
+    protected $keyType = 'string';
+    public $incrementing = true;
+
     protected $fillable = [
         'name',
         'code',
