@@ -18,5 +18,7 @@ class ReportList extends Model
         'note',
         'maintenance_by',
         'survey_status',
+        'damage_severity',
+        'photo'
     ];
 }
