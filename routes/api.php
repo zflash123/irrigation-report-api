@@ -27,9 +27,11 @@ Route::post('/reset-password', [UserController::class, 'reset_password']);
 
 Route::get('/close-segments', [AppController::class, 'close_segments']);
 
-Route::post('/report', [ReportController::class, 'report']);
+Route::post('/report', [ReportController::class, 'create_report']);
 
-Route::get('/report-detail/{id}', [ReportController::class, 'report_detail']);
+Route::get('/report/{id}', [ReportController::class, 'report_by_id']);
+
+Route::get('/user-reports', [ReportController::class, 'reports_by_user_id']);
 
 Route::get('/segments-by-user-id', [AppController::class, 'segments_by_user_id']);
 

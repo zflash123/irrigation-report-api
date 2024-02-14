@@ -6,10 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\ReportList;
+use Illuminate\Support\Facades\Auth;
 
 class ReportController extends Controller
 {
-    function report(Request $request) {
+    function create_report(Request $request) {
         $segment_id = $request->segment_id;
         $no_ticket = "ticket_".Str::random(100);
         $note = $request->note;
@@ -29,8 +30,14 @@ class ReportController extends Controller
         return response()->json($report);
     }
 
-    function report_detail($id) {
+    function report_by_id($id) {
         $reportList = ReportList::where('id', $id)->first();
         return response()->json($reportList);
+    }
+
+    function reports_by_user_id() {
+        $userId = Auth::id();
+        $report = ReportList::where('user_id', $userId)->get();
+        return response()->json($report);
     }
 }
