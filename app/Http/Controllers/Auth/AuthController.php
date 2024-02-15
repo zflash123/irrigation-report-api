@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
@@ -23,7 +24,11 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 400);
         }
 
-        return $this->respondWithToken($token);
+        $user = auth()->user();
+        $customClaims = ['user' => $user->toArray()];
+        $jwt = JWTAuth::claims($customClaims)->attempt($credentials);
+
+        return $this->respondWithToken($token, $jwt);
     }
 
     public function register()
@@ -81,12 +86,17 @@ class AuthController extends Controller
         return $this->respondWithToken(auth()->refresh());
     }
 
-    protected function respondWithToken($token)
+    protected function respondWithToken($token, $jwt)
     {
         return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'data' => [
+                'token' => $token,
+                'jwtToken' => $jwt,
+                'token_type' => 'bearer',
+                'expires_in' => auth()->factory()->getTTL() * 60
+            ],
+            'statusCode' => 200,
+            'message' => 'OK'
         ]);
     }
 }
