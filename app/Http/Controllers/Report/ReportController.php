@@ -12,7 +12,7 @@ class ReportController extends Controller
 {
     function create_report(Request $request) {
         $segment_id = $request->segment_id;
-        $no_ticket = "ticket_".Str::random(100);
+        $no_ticket = date('y').date('m').rand(10000, 99999);
         $note = $request->note;
         $damage_severity = $request->damage_severity;
         $photo = "report_photo_".Str::random(100);
