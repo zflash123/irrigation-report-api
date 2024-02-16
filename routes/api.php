@@ -7,6 +7,7 @@ use App\Http\Controllers\Report\ReportController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Map\IrrigationSectionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\User\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +36,7 @@ Route::get('/user-reports', [ReportController::class, 'reports_by_user_id']);
 
 Route::get('/segments-by-user-id', [AppController::class, 'segments_by_user_id']);
 
-Route::get('/user-data', [AppController::class, 'user_data']);
+Route::get('/profile', [ProfileController::class, 'show_profile']);
 
 Route::prefix('auth')->middleware('api')->group(function () {
     Route::post('login', [AuthController::class, 'login']);
