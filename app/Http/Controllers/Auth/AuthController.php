@@ -20,15 +20,15 @@ class AuthController extends Controller
     public function login()
     {
         $credentials = request(['email', 'password']);
-        if (!$token = auth()->attempt($credentials)) {
+        if (!auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 400);
         }
 
-        $user = auth()->user();
-        $customClaims = ['user' => $user->toArray()];
+        $user_id = auth()->user()->id;
+        $customClaims = ['user' => User::where('id', $user_id)->select('id as user_id', 'email')->first()];
         $jwt = JWTAuth::claims($customClaims)->attempt($credentials);
 
-        return $this->respondWithToken($token, $jwt);
+        return $this->respondWithToken($jwt);
     }
 
     public function register()
@@ -86,11 +86,10 @@ class AuthController extends Controller
         return $this->respondWithToken(auth()->refresh());
     }
 
-    protected function respondWithToken($token, $jwt)
+    protected function respondWithToken($jwt)
     {
         return response()->json([
             'data' => [
-                'token' => $token,
                 'jwtToken' => $jwt,
                 'token_type' => 'bearer',
                 'expires_in' => auth()->factory()->getTTL() * 60
