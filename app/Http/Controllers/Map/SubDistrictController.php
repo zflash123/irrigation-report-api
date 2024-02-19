@@ -13,8 +13,6 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class SubDistrictController extends Controller
 {
-
-
     public function index(Request $request)
     {
         $sectionFilter = new MapSectionFilter();
@@ -32,11 +30,12 @@ class SubDistrictController extends Controller
             $query->where($filter[0], $filter[1], $filter[2]);
         }
 
-        if ($request->has('limit')) {
-            $sub_districts = $query->paginate($request->query('limit'));
-        } else {
-            $sub_districts = $query->paginate();
-        }
+        // if ($request->has('limit')) {
+        //     $sub_districts = $query->paginate($request->query('limit'));
+        // } else {
+        //     $sub_districts = $query->paginate();
+        // }
+        $sub_districts = $query->get();
 
         $sub_districts->transform(function ($item) {
             $geojson = DB::selectOne('SELECT ST_AsGeoJSON(ST_Transform(geom, 4326)) as geojson FROM master.sub_district WHERE id = ?', [$item->id])->geojson;
