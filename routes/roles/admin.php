@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Map\IrrigationListController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Map\IrrigationSectionController;
 use App\Http\Controllers\Map\SubDistrictController;
@@ -10,7 +10,7 @@ use App\Http\Controllers\User\UserController;
 Route::prefix('map')->middleware(['api', 'auth:api'])->group(function () {
     Route::get('sub-district', [SubDistrictController::class, 'index']);
     Route::get('sub-district/{id}', [SubDistrictController::class, 'show']);
-    Route::get('section', [IrrigationSectionController::class, 'index']);
+    Route::get('irrigations', [IrrigationListController::class, 'index']);
 });
 
 Route::prefix('roles')->middleware(['api', 'auth:api'])->group(function () {
@@ -22,7 +22,7 @@ Route::prefix('roles')->middleware(['api', 'auth:api'])->group(function () {
     Route::delete('', [RoleController::class, 'deleteAll']);
 });
 
-Route::prefix('users')->middleware([])->group(function () {
+Route::prefix('users')->middleware(['api', 'auth:api'])->group(function () {
     Route::get('', [UserController::class, 'index']);
     Route::get('/{id}', [UserController::class, 'show']);
     Route::post('', [UserController::class, 'store']);
