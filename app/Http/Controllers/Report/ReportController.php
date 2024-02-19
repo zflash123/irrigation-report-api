@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\ReportList;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
@@ -18,7 +18,7 @@ class ReportController extends Controller
         $photo = "report_photo_".Str::random(100);
         $report = ReportList::create([
             'segment_id' => $segment_id,
-            'user_id' => '748c90a1-25ba-4fc1-a9f9-63879cf4fe90',
+            'user_id' => '7dcdfaaf-a5c9-4efe-8ae2-bb3976323e16',
             'status_id' => 'c78b942c-2fd8-4876-b6d6-07933d7326be',
             'no_ticket' => $no_ticket,
             'note' => $note,
@@ -31,13 +31,25 @@ class ReportController extends Controller
     }
 
     function report_by_id($id) {
-        $reportList = ReportList::where('id', $id)->first();
-        return response()->json($reportList);
+        $report = DB::table('report.report_list')
+                    ->where('report.report_list.id', '=', $id)
+                    ->join('report.status', 'report.report_list.status_id', '=', 'report.status.id')
+                    ->join('master.irrigations_segmen', 'report.report_list.segment_id', '=', 'master.irrigations_segmen.id')
+                    ->join('master.irrigations', 'master.irrigations_segmen.irrigation_id', '=', 'master.irrigations.id')
+                    ->select('report.report_list.id', 'report.report_list.no_ticket', 'report.report_list.note', 'report.report_list.damage_severity', 'report.report_list.photo', 'report.status.name as status', 'master.irrigations.name as irrigation', 'master.irrigations.type as canal')
+                    ->first();
+        return response()->json($report);
     }
 
     function reports_by_user_id() {
-        $userId = Auth::id();
-        $report = ReportList::where('user_id', $userId)->get();
+        $userId = "7dcdfaaf-a5c9-4efe-8ae2-bb3976323e16";
+        $report = DB::table('report.report_list')
+                    ->where('report.report_list.user_id', '=', $userId)
+                    ->join('report.status', 'report.report_list.status_id', '=', 'report.status.id')
+                    ->join('master.irrigations_segmen', 'report.report_list.segment_id', '=', 'master.irrigations_segmen.id')
+                    ->join('master.irrigations', 'master.irrigations_segmen.irrigation_id', '=', 'master.irrigations.id')
+                    ->select('report.report_list.id', 'report.report_list.no_ticket', 'report.report_list.note', 'report.report_list.damage_severity', 'report.report_list.photo', 'report.status.name as status', 'master.irrigations.name as irrigation', 'master.irrigations.type as canal')
+                    ->get();
         return response()->json($report);
     }
 }
