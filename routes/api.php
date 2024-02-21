@@ -26,17 +26,14 @@ Route::post('/login', [UserController::class, 'login']);
 
 Route::post('/reset-password', [UserController::class, 'reset_password']);
 
-Route::get('/close-segments', [AppController::class, 'close_segments']);
-
-Route::post('/report', [ReportController::class, 'create_report']);
-
-Route::get('/report/{id}', [ReportController::class, 'report_by_id']);
-
-Route::get('/user-reports', [ReportController::class, 'reports_by_user_id']);
-
-Route::get('/segments-by-user-id', [AppController::class, 'segments_by_user_id']);
-
-Route::get('/profile', [ProfileController::class, 'show_profile']);
+Route::group(['middleware' => ['normal.user:api']], function() {
+    Route::get('/close-segments', [AppController::class, 'close_segments']);
+    Route::post('/report', [ReportController::class, 'create_report']);
+    Route::get('/report/{id}', [ReportController::class, 'report_by_id']);
+    Route::get('/user-reports', [ReportController::class, 'reports_by_user_id']);
+    Route::get('/segments-by-user-id', [AppController::class, 'segments_by_user_id']);
+    Route::get('/profile', [ProfileController::class, 'show_profile']);
+});
 
 Route::prefix('auth')->middleware('api')->group(function () {
     Route::post('login', [AuthController::class, 'login']);
