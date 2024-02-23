@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class District extends Model
 {
     use HasFactory;
-    protected $table = 'master.district';
+    protected $table = 'map.district';
     protected $keyType = 'string';
     public $incrementing = false;
 

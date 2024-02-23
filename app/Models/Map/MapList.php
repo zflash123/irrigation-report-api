@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 class MapList extends Model
 {
     use HasFactory;
-    protected $table = 'master.irrigations';
+    protected $table = 'map.irrigations';
     protected $keyType = 'string';
     public $incrementing = false;
 

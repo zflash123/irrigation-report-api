@@ -9,7 +9,7 @@ use Laravel\Sanctum\HasApiTokens;
 class MapSection extends Model
 {
     use HasFactory;
-    protected $table = 'master.irrigations_section';
+    protected $table = 'map.irrigations_section';
     protected $keyType = 'string';
     public $incrementing = false;
 
