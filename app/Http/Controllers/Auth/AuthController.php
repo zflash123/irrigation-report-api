@@ -39,10 +39,7 @@ class AuthController extends Controller
             'email' => 'required',
             'password' => 'required',
             'fullname' => 'required',
-            'shortname' => 'required',
-            'avatar' => 'required',
             'phone' => 'required',
-            'status' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -58,7 +55,6 @@ class AuthController extends Controller
             'shortname' => request('shortname'),
             'avatar' => request('avatar'),
             'phone' => request('phone'),
-            'status' => request('status'),
             'created_at' => Carbon::now(),
         ]);
 
