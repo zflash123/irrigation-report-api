@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\User\UserResource;
 use App\Models\User;
+use App\Models\UserRole;
 use App\Services\User\UserSectionFilter;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class UserController extends Controller
         $queryItems = $userFilter->transform($request);
 
         $query = QueryBuilder::for(User::class)
-            ->allowedSorts(['username', 'email', 'fullname', 'shortname', 'created_at', 'updated_at']);
+            ->allowedSorts(['username', 'email', 'fullname', 'phone', 'created_at', 'updated_at']);
 
         foreach ($queryItems as $filter) {
             $query->where($filter[0], $filter[1], $filter[2]);
@@ -48,14 +49,19 @@ class UserController extends Controller
                 'email' => 'required|email',
                 'password' => 'required',
                 'fullname' => 'required',
-                'shortname' => 'required',
-                'avatar' => 'required',
                 'phone' => 'required',
-                'status' => 'required',
             ]);
 
             $hashedPassword = Hash::make($validatedData['password']);
             $validatedData['password'] = $hashedPassword;
+
+            $roleExists = UserRole::where('id', $validatedData['urole_id'])->exists();
+            if (!$roleExists) {
+                return response()->json([
+                    'error' => 'Validation failed',
+                    'message' => 'Invalid role ID',
+                ], 422);
+            }
 
             $user = User::create($validatedData);
 
@@ -68,6 +74,11 @@ class UserController extends Controller
                 'error' => 'Validation failed',
                 'message' => $err->errors(),
             ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Failed to update user',
+                'message' => $e->getMessage(),
+            ], 500);
         }
     }
 
@@ -90,11 +101,17 @@ class UserController extends Controller
                 'email' => 'sometimes|required|email',
                 'password' => 'sometimes|required',
                 'fullname' => 'sometimes|required',
-                'shortname' => 'sometimes|required',
-                'avatar' => 'sometimes|required',
+                'avatar' => 'sometimes',
                 'phone' => 'sometimes|required',
-                'status' => 'sometimes|required',
             ]);
+
+            $roleExists = UserRole::where('id', $validatedData['urole_id'])->exists();
+            if (!$roleExists) {
+                return response()->json([
+                    'error' => 'Validation failed',
+                    'message' => 'Invalid role ID',
+                ], 422);
+            }
 
             $user->update($validatedData);
 

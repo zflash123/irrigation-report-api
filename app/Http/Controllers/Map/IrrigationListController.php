@@ -36,11 +36,9 @@ class IrrigationListController extends Controller
             $irrigations_list = $query->paginate();
         }
 
-        // $irrigations_list = $query->get();
-
         $irrigations_list->transform(function ($item) {
             $geojson =
-                DB::selectOne('SELECT *, ST_AsGeoJSON(ST_Transform(geom, 4326)) as geojson FROM master.irrigations WHERE id = ?', [$item->id])->geojson;
+                DB::selectOne('SELECT *, ST_AsGeoJSON(ST_Transform(geom, 4326)) as geojson FROM map.irrigations WHERE id = ?', [$item->id])->geojson;
             $item->geojson = $geojson;
             return $item;
         });

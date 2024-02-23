@@ -11,6 +11,8 @@ use App\Http\Controllers\User\UserController;
 Route::prefix('map')->middleware(['api', 'auth:api'])->group(function () {
     Route::get('sub-district', [SubDistrictController::class, 'index']);
     Route::get('sub-district/{id}', [SubDistrictController::class, 'show']);
+    Route::get('district', [DistrictController::class, 'index']);
+    Route::get('district/{id}', [DistrictController::class, 'show']);
     Route::get('irrigations', [IrrigationListController::class, 'index']);
 });
 
@@ -30,9 +32,4 @@ Route::prefix('users')->middleware(['api', 'auth:api'])->group(function () {
     Route::put('/{id}', [UserController::class, 'update']);
     Route::delete('/{id}', [UserController::class, 'destroy']);
     Route::delete('change-password/{id}', [UserController::class, 'change_password']);
-});
-
-Route::prefix('master')->middleware(['api', 'auth:api'])->group(function () {
-    Route::get('district', [DistrictController::class, 'index']);
-    Route::get('district/{id}', [DistrictController::class, 'show']);
 });

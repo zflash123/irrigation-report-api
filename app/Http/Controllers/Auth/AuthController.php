@@ -52,7 +52,6 @@ class AuthController extends Controller
             'email' => request('email'),
             'password' => Hash::make(request('password')),
             'fullname' => request('fullname'),
-            'shortname' => request('shortname'),
             'avatar' => request('avatar'),
             'phone' => request('phone'),
             'created_at' => Carbon::now(),
