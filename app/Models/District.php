@@ -8,9 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class District extends Model
 {
     use HasFactory;
+    protected $table = 'master.district';
+    protected $keyType = 'string';
+    public $incrementing = false;
 
     protected $fillable = [
+        'name',
         'city_id',
-        'name'
     ];
 }
