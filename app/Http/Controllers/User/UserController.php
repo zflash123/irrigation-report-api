@@ -46,7 +46,7 @@ class UserController extends Controller
             $validatedData = $request->validate([
                 'urole_id' => 'required',
                 'username' => 'required',
-                'email' => 'required|email',
+                'email' => 'required|email|unique:user.users,email',
                 'password' => 'required',
                 'fullname' => 'required',
                 'phone' => 'required',
@@ -95,14 +95,13 @@ class UserController extends Controller
             $user = User::findOrFail($id);
 
             $validatedData = $request->validate([
-                'username' => 'string|max:100',
-                'urole_id' => 'sometimes|required',
-                'username' => 'sometimes|required',
-                'email' => 'sometimes|required|email',
-                'password' => 'sometimes|required',
-                'fullname' => 'sometimes|required',
+                'username' => 'string|sometimes|max:100',
+                'urole_id' => 'required',
+                'email' => 'sometimes|email|unique:user.users,email',
+                'password' => 'sometimes',
+                'fullname' => 'sometimes',
                 'avatar' => 'sometimes',
-                'phone' => 'sometimes|required',
+                'phone' => 'sometimes',
             ]);
 
             $roleExists = UserRole::where('id', $validatedData['urole_id'])->exists();
