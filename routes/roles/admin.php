@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\Content\ArticleController;
+use App\Http\Controllers\Content\ComplaintController;
 use App\Http\Controllers\Map\DistrictController;
 use App\Http\Controllers\Map\IrrigationListController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Map\IrrigationSectionController;
 use App\Http\Controllers\Map\SubDistrictController;
 use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\UserController;
@@ -32,4 +33,12 @@ Route::prefix('users')->middleware(['api', 'auth:api'])->group(function () {
     Route::put('/{id}', [UserController::class, 'update']);
     Route::delete('/{id}', [UserController::class, 'destroy']);
     Route::delete('change-password/{id}', [UserController::class, 'change_password']);
+});
+
+Route::prefix('article')->middleware(['api', 'auth:api'])->group(function () {
+    Route::get('', [ArticleController::class, 'index']);
+    Route::get('/{id}', [ArticleController::class, 'show']);
+    Route::post('', [ArticleController::class, 'store']);
+    Route::put('/{id}', [ArticleController::class, 'update']);
+    Route::delete('/{id}', [ArticleController::class, 'destroy']);
 });
