@@ -19,26 +19,16 @@ class SubDistrictController extends Controller
         $queryItems = $sectionFilter->transform($request); //(['column', 'operator', 'value'])
 
         $query = QueryBuilder::for(SubDistrict::class)
-            ->allowedSorts(['name', 'area_km2', 'created_at', 'updated_at'])
-            ->allowedFilters([
-                AllowedFilter::exact('district_id'),
-                AllowedFilter::exact('name'),
-                AllowedFilter::exact('type'),
-            ]);
+            ->allowedSorts(['name', 'type', 'area_km2', 'created_at', 'updated_at']);
 
         foreach ($queryItems as $filter) {
             $query->where($filter[0], $filter[1], $filter[2]);
         }
 
-        // if ($request->has('limit')) {
-        //     $sub_districts = $query->paginate($request->query('limit'));
-        // } else {
-        //     $sub_districts = $query->paginate();
-        // }
         $sub_districts = $query->get();
 
         $sub_districts->transform(function ($item) {
-            $geojson = DB::selectOne('SELECT ST_AsGeoJSON(ST_Transform(geom, 4326)) as geojson FROM master.sub_district WHERE id = ?', [$item->id])->geojson;
+            $geojson = DB::selectOne('SELECT ST_AsGeoJSON(ST_Transform(geom, 4326)) as geojson FROM map.sub_district WHERE id = ?', [$item->id])->geojson;
             $item->geojson = $geojson;
             return $item;
         });
@@ -50,7 +40,7 @@ class SubDistrictController extends Controller
     {
         $subDistrict = SubDistrict::findOrFail($id);
 
-        $geojson = DB::selectOne('SELECT ST_AsGeoJSON(ST_Transform(geom, 4326)) as geojson FROM master.sub_district WHERE id = ?', [$subDistrict->id])->geojson;
+        $geojson = DB::selectOne('SELECT ST_AsGeoJSON(ST_Transform(geom, 4326)) as geojson FROM map.sub_district WHERE id = ?', [$subDistrict->id])->geojson;
         $subDistrict->geojson = $geojson;
 
         return new SubDistrictResource($subDistrict);
