@@ -9,16 +9,22 @@ class UserSectionFilter extends ApiFilter
     protected $safeParms = [
         'urole_id' => ['eq', 'ne'],
         'username' => ['eq', 'ne'],
-        'name' => ['eq', 'ne'],
         'email' => ['eq', 'ne'],
         'fullname' => ['eq', 'ne'],
         'shortname' => ['eq', 'ne'],
+        'phone' => ['eq', 'ne'],
         'code' => ['eq', 'ne'],
     ];
 
     protected $columnMap = [
-        'name' => 'name',
-        'code' => 'code',
+        'username' => 'username',
+        'email' => 'email',
+        'password' => 'password',
+        'fullname' => 'fullname',
+        'shortname' => 'shortname',
+        'avatar' => 'avatar',
+        'phone' => 'phone',
+        'status' => 'status',
     ];
 
     protected $operatorMap = [

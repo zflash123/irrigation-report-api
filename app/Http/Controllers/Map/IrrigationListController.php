@@ -19,7 +19,7 @@ class IrrigationListController extends Controller
         $queryItems = $listFilter->transform($request);  //(['column', 'operator', 'value'])
 
         $query = QueryBuilder::for(MapList::class)
-            ->allowedSorts(['district_id', 'sub_district_id', 'name'])
+            ->allowedSorts(['district_id', 'sub_district_id', 'name', 'created_at'])
             ->allowedFilters([
                 AllowedFilter::exact('district_id'),
                 AllowedFilter::exact('sub_district_id'),

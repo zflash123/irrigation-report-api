@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Map\DistrictController;
 use App\Http\Controllers\Map\IrrigationListController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Map\IrrigationSectionController;
@@ -29,4 +30,9 @@ Route::prefix('users')->middleware(['api', 'auth:api'])->group(function () {
     Route::put('/{id}', [UserController::class, 'update']);
     Route::delete('/{id}', [UserController::class, 'destroy']);
     Route::delete('change-password/{id}', [UserController::class, 'change_password']);
+});
+
+Route::prefix('master')->middleware(['api', 'auth:api'])->group(function () {
+    Route::get('district', [DistrictController::class, 'index']);
+    Route::get('district/{id}', [DistrictController::class, 'show']);
 });

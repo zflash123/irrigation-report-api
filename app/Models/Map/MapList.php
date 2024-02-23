@@ -2,6 +2,7 @@
 
 namespace App\Models\Map;
 
+use App\Models\District;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\HasApiTokens;
@@ -25,4 +26,14 @@ class MapList extends Model
         'geom',
         'geojson'
     ];
+
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'district_id');
+    }
+
+    public function sub_district()
+    {
+        return $this->belongsTo(SubDistrict::class, 'sub_district_id');
+    }
 }
