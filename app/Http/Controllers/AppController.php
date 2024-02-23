@@ -19,7 +19,7 @@ class AppController extends Controller
         FROM
             master.irrigations_segmen
         WHERE
-            public.ST_Distance(geom, public.geography(public.ST_SetSRID(public.ST_MakePoint($longitude, $latitude), 4326)))<=200
+            public.ST_Distance(geom, public.geography(public.ST_SetSRID(public.ST_MakePoint($longitude, $latitude), 4326)))<=100
         ORDER BY
             distance;");
         return response()->json($close_segment);
