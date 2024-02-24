@@ -17,7 +17,7 @@ class AppController extends Controller
             geojson,
             public.ST_Distance(geom, public.geography(public.ST_SetSRID(public.ST_MakePoint($longitude, $latitude), 4326))) AS distance
         FROM
-            master.irrigations_segmen
+            map.irrigations_segment
         WHERE
             public.ST_Distance(geom, public.geography(public.ST_SetSRID(public.ST_MakePoint($longitude, $latitude), 4326)))<=100
         ORDER BY

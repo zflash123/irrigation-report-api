@@ -34,9 +34,9 @@ class ReportController extends Controller
         $report = DB::table('report.report_list')
                     ->where('report.report_list.id', '=', $id)
                     ->join('report.status', 'report.report_list.status_id', '=', 'report.status.id')
-                    ->join('master.irrigations_segmen', 'report.report_list.segment_id', '=', 'master.irrigations_segmen.id')
-                    ->join('master.irrigations', 'master.irrigations_segmen.irrigation_id', '=', 'master.irrigations.id')
-                    ->select('report.report_list.id', 'report.report_list.no_ticket', 'report.report_list.note', 'report.report_list.damage_severity', 'report.report_list.photo', 'report.status.name as status', 'master.irrigations.name as irrigation', 'master.irrigations.type as canal')
+                    ->join('map.irrigations_segment', 'report.report_list.segment_id', '=', 'map.irrigations_segment.id')
+                    ->join('map.irrigations', 'map.irrigations_segment.irrigation_id', '=', 'map.irrigations.id')
+                    ->select('report.report_list.id', 'report.report_list.no_ticket', 'report.report_list.note', 'report.report_list.damage_severity', 'report.report_list.photo', 'report.status.name as status', 'map.irrigations.name as irrigation', 'map.irrigations.type as canal')
                     ->first();
         return response()->json($report);
     }
@@ -46,9 +46,9 @@ class ReportController extends Controller
         $report = DB::table('report.report_list')
                     ->where('report.report_list.user_id', '=', $userId)
                     ->join('report.status', 'report.report_list.status_id', '=', 'report.status.id')
-                    ->join('master.irrigations_segmen', 'report.report_list.segment_id', '=', 'master.irrigations_segmen.id')
-                    ->join('master.irrigations', 'master.irrigations_segmen.irrigation_id', '=', 'master.irrigations.id')
-                    ->select('report.report_list.id', 'report.report_list.no_ticket', 'report.report_list.note', 'report.report_list.damage_severity', 'report.report_list.photo', 'report.status.name as status', 'master.irrigations.name as irrigation', 'master.irrigations.type as canal')
+                    ->join('map.irrigations_segment', 'report.report_list.segment_id', '=', 'map.irrigations_segment.id')
+                    ->join('map.irrigations', 'map.irrigations_segment.irrigation_id', '=', 'map.irrigations.id')
+                    ->select('report.report_list.id', 'report.report_list.no_ticket', 'report.report_list.note', 'report.report_list.damage_severity', 'report.report_list.photo', 'report.status.name as status', 'map.irrigations.name as irrigation', 'map.irrigations.type as canal')
                     ->get();
         return response()->json($report);
     }
