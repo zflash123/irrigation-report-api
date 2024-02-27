@@ -9,7 +9,7 @@ use App\Models\User;
 class ProfileController extends Controller
 {
     function show_profile() {
-        $user_id = "7dcdfaaf-a5c9-4efe-8ae2-bb3976323e16";
+        $user_id = auth()->user()->id;
         $user = User::where('id', $user_id)->first();
         return response()->json($user);
     }
