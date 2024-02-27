@@ -8,6 +8,7 @@ use App\Models\Content\Article;
 use App\Services\Content\ArticleFilter;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -42,9 +43,12 @@ class ArticleController extends Controller
     {
         try {
             $validatedData = $request->validate([
+                'author' => 'required',
                 'title' => 'required',
                 'desc' => 'required',
                 'image' => 'required',
+                'location' => 'sometimes',
+                'tags' => 'sometimes',
             ]);
 
             $article = Article::create($validatedData);
@@ -79,9 +83,12 @@ class ArticleController extends Controller
             $article = Article::findOrFail($id);
 
             $validatedData = $request->validate([
+                'author' => 'sometimes',
                 'title' => 'sometimes',
                 'desc' => 'sometimes',
                 'image' => 'sometimes',
+                'location' => 'sometimes',
+                'tags' => 'sometimes',
             ]);
 
             $article->update($validatedData);

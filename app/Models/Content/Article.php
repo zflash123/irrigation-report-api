@@ -16,6 +16,9 @@ class Article extends Model
         'title',
         'desc',
         'image',
+        'location',
+        'author',
+        'tags',
         'created_at',
         'updated_at',
     ];
