@@ -45,4 +45,14 @@ class IrrigationListController extends Controller
 
         return ListResource::collection($irrigations_list);
     }
+
+    public function show($id)
+    {
+        $irrigationId = MapList::findOrFail($id);
+
+        $geojsonResult = DB::selectOne('SELECT *, ST_AsGeoJSON(ST_Transform(geom, 4326)) as geojson FROM map.irrigations WHERE id = ?', [$irrigationId->id]);
+        $irrigationId['geojson'] = $geojsonResult->geojson;
+
+        return new ListResource($irrigationId);
+    }
 }
