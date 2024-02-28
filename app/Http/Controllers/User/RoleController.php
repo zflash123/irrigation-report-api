@@ -5,16 +5,36 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\User\RoleResource;
 use App\Models\UserRole;
+use App\Services\User\RoleFilter;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class RoleController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $role = UserRole::paginate();
+        $roleFilter = new RoleFilter();
+        $queryItems = $roleFilter->transform($request);
+
+        $query = QueryBuilder::for(UserRole::class)
+            ->allowedSorts(['code', 'name', 'desc', 'created_at', 'updated_at']);
+
+        foreach ($queryItems as $filter) {
+            $query->where($filter[0], $filter[1], $filter[2]);
+        }
+
+        if ($request->has('limit')) {
+            $role = $query->paginate($request->query('limit'));
+        } else {
+            $role = $query->paginate();
+        }
+
+        $role->getCollection()->transform(function ($roles) {
+            return $roles;
+        });
 
         return RoleResource::collection($role);
     }
