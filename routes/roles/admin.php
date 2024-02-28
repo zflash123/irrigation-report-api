@@ -15,6 +15,7 @@ Route::prefix('map')->middleware(['api', 'auth:api'])->group(function () {
     Route::get('district', [DistrictController::class, 'index']);
     Route::get('district/{id}', [DistrictController::class, 'show']);
     Route::get('irrigations', [IrrigationListController::class, 'index']);
+    Route::get('irrigations/{id}', [IrrigationListController::class, 'show']);
 });
 
 Route::prefix('roles')->middleware(['api', 'auth:api'])->group(function () {
@@ -41,4 +42,12 @@ Route::prefix('article')->middleware(['api', 'auth:api'])->group(function () {
     Route::post('', [ArticleController::class, 'store']);
     Route::put('/{id}', [ArticleController::class, 'update']);
     Route::delete('/{id}', [ArticleController::class, 'destroy']);
+});
+
+Route::prefix('complaint')->middleware(['api', 'auth:api'])->group(function () {
+    Route::get('', [ComplaintController::class, 'index']);
+    Route::get('/{id}', [ComplaintController::class, 'show']);
+    Route::post('', [ComplaintController::class, 'store']);
+    Route::put('/{id}', [ComplaintController::class, 'update']);
+    Route::delete('/{id}', [ComplaintController::class, 'destroy']);
 });
