@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Report;
 
 use App\Http\Resources\User\UserResource;
+use App\Models\Report\ReportSegment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -36,6 +37,10 @@ class ReportListResource extends JsonResource
 
             if (in_array('status_id', $embedValues)) {
                 $data['status'] = new StatusResource($this->status);
+            }
+
+            if (in_array('segments', $embedValues)) {
+                $data['segments'] = ReportSegmentResource::collection($this->segments);
             }
         }
 
