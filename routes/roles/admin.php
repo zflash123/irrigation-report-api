@@ -6,6 +6,7 @@ use App\Http\Controllers\Map\DistrictController;
 use App\Http\Controllers\Map\IrrigationListController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Map\SubDistrictController;
+use App\Http\Controllers\Report\ReportListController;
 use App\Http\Controllers\UploadDump\UploadDumpController;
 use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\UserController;
@@ -59,4 +60,12 @@ Route::prefix('upload-dumps')->middleware(['api', 'auth:api'])->group(function (
     Route::post('', [UploadDumpController::class, 'store']);
     Route::put('/{id}', [UploadDumpController::class, 'update']);
     Route::delete('/{id}', [UploadDumpController::class, 'destroy']);
+});
+
+Route::prefix('report-list')->middleware(['api', 'auth:api'])->group(function () {
+    Route::get('', [ReportListController::class, 'index']);
+    Route::get('/{id}', [ReportListController::class, 'show']);
+    Route::post('', [ReportListController::class, 'store']);
+    Route::put('/{id}', [ReportListController::class, 'update']);
+    Route::delete('/{id}', [ReportListController::class, 'destroy']);
 });
