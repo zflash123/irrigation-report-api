@@ -13,7 +13,6 @@ class ReportListController extends Controller
 {
     public function index(Request $request)
     {
-        echo ('work');
         $reportFilter = new ReportListFilter();
         $queryItems = $reportFilter->transform($request);
 
@@ -41,8 +40,8 @@ class ReportListController extends Controller
 
     public function show($id)
     {
-        $roleId = ReportList::findOrFail($id);
+        $reportListId = ReportList::findOrFail($id);
 
-        return new ReportListResource($roleId);
+        return new ReportListResource($reportListId);
     }
 }
