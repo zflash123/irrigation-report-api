@@ -6,6 +6,9 @@ use App\Http\Controllers\Map\DistrictController;
 use App\Http\Controllers\Map\IrrigationListController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Map\SubDistrictController;
+use App\Http\Controllers\Report\ReportListController;
+use App\Http\Controllers\Report\ReportSegmentController;
+use App\Http\Controllers\Report\StatusController;
 use App\Http\Controllers\UploadDump\UploadDumpController;
 use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\UserController;
@@ -59,4 +62,28 @@ Route::prefix('upload-dumps')->middleware(['api', 'auth:api'])->group(function (
     Route::post('', [UploadDumpController::class, 'store']);
     Route::put('/{id}', [UploadDumpController::class, 'update']);
     Route::delete('/{id}', [UploadDumpController::class, 'destroy']);
+});
+
+Route::prefix('report-list')->middleware(['api', 'auth:api'])->group(function () {
+    Route::get('', [ReportListController::class, 'index']);
+    Route::get('/{id}', [ReportListController::class, 'show']);
+    Route::post('', [ReportListController::class, 'store']);
+    Route::put('/{id}', [ReportListController::class, 'update']);
+    Route::delete('/{id}', [ReportListController::class, 'destroy']);
+});
+
+Route::prefix('report-segment')->middleware(['api', 'auth:api'])->group(function () {
+    Route::get('', [ReportSegmentController::class, 'index']);
+    Route::get('/{id}', [ReportSegmentController::class, 'show']);
+    Route::post('', [ReportSegmentController::class, 'store']);
+    Route::put('/{id}', [ReportSegmentController::class, 'update']);
+    Route::delete('/{id}', [ReportSegmentController::class, 'destroy']);
+});
+
+Route::prefix('status')->middleware(['api', 'auth:api'])->group(function () {
+    Route::get('', [StatusController::class, 'index']);
+    Route::get('/{id}', [StatusController::class, 'show']);
+    Route::post('', [StatusController::class, 'store']);
+    Route::put('/{id}', [StatusController::class, 'update']);
+    Route::delete('/{id}', [StatusController::class, 'destroy']);
 });

@@ -77,7 +77,7 @@ class RoleController extends Controller
             $validatedData = $request->validate([
                 'name' => 'string|max:100',
                 'code' => 'string|max:100',
-                'desc' => 'nullable|string|max:255',
+                'desc' => 'sometimes|string|max:255',
             ]);
 
             $role->update($validatedData);
