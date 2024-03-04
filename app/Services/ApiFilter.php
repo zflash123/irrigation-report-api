@@ -33,19 +33,6 @@ class ApiFilter
             }
         }
 
-        // Tipe Saluran
-
-        // Handle search parameter
-        if ($search = $request->input('search')) {
-            echo "Search keyword: " . $search . "<br>";
-
-            foreach ($this->columnMap as $column) {
-                echo "Searching in column: " . $column . "<br>";
-                $eloQuery[] = [DB::raw('LOWER(' . $column . ')'), 'LIKE', '%' . strtolower($search) . '%'];
-            }
-        }
-
-
         return $eloQuery;
     }
 }
