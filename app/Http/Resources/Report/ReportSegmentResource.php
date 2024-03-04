@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Report;
 
+use App\Http\Resources\Map\MapSegmentResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -26,6 +27,14 @@ class ReportSegmentResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
+
+        if ($request->has('embed')) {
+            $embedValues = explode(',', $request->get('embed'));
+
+            if (in_array('segmen', $embedValues)) {
+                $data['segmen'] = new MapSegmentResource($this->segmen);
+            }
+        }
 
         return $data;
     }

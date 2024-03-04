@@ -2,6 +2,7 @@
 
 namespace App\Models\Report;
 
+use App\Models\Map\MapSegment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,5 +27,10 @@ class ReportSegment extends Model
     public function report()
     {
         return $this->belongsTo(ReportList::class, 'report_id');
+    }
+
+    public function segmen()
+    {
+        return $this->belongsTo(MapSegment::class, 'segment_id');
     }
 }
