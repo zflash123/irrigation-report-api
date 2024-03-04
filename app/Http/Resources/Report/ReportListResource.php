@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Report;
 
+use App\Http\Resources\Map\MapSegmentResource;
 use App\Http\Resources\User\UserResource;
 use App\Models\Report\ReportSegment;
 use Illuminate\Http\Request;
@@ -40,7 +41,14 @@ class ReportListResource extends JsonResource
             }
 
             if (in_array('segments', $embedValues)) {
-                $data['segments'] = ReportSegmentResource::collection($this->segments);
+                $segments = $this->segments->map(function ($segment) {
+                    $segmentResource = new ReportSegmentResource($segment);
+                    if (isset($segment->segmen)) {
+                        $segmentResource->segmen = new MapSegmentResource($segment->segmen);
+                    }
+                    return $segmentResource;
+                });
+                $data['segments'] = $segments;
             }
         }
 
