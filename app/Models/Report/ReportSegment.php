@@ -5,13 +5,13 @@ namespace App\Models\Report;
 use App\Models\Map\MapSegment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ReportSegment extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
     protected $table = 'report.report_segment';
-    protected $keyType = 'string';
-    public $incrementing = true;
 
     protected $fillable = [
         'report_id',
@@ -19,9 +19,7 @@ class ReportSegment extends Model
         'level',
         'type',
         'rate',
-        'comment',
-        'created_at',
-        'updated_at',
+        'comment'
     ];
 
     public function report()
@@ -29,8 +27,13 @@ class ReportSegment extends Model
         return $this->belongsTo(ReportList::class, 'report_id');
     }
 
-    public function segmen()
+    public function segment()
     {
         return $this->belongsTo(MapSegment::class, 'segment_id');
+    }
+
+    public function report_photo(): HasOne
+    {
+        return $this->hasOne(ReportPhoto::class, 'report_segment_id');
     }
 }
