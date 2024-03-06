@@ -5,13 +5,13 @@ namespace App\Models\Report;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 class ReportList extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
     protected $table = 'report.report_list';
-    protected $keyType = 'string';
-    public $incrementing = true;
 
     protected $fillable = [
         'user_id',
@@ -19,8 +19,7 @@ class ReportList extends Model
         'no_ticket',
         'note',
         'maintenance_by',
-        'created_at',
-        'updated_at',
+        'survey_status',
     ];
 
     public function user()
@@ -33,7 +32,7 @@ class ReportList extends Model
         return $this->belongsTo(Status::class, 'status_id');
     }
 
-    public function segments()
+    public function report_segment()
     {
         return $this->hasMany(ReportSegment::class, 'report_id');
     }
