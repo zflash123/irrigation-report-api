@@ -21,7 +21,7 @@ class UploadDumpResource extends JsonResource
             'file_type' => $this->file_type,
             'size' => $this->size,
             'folder' => $this->folder,
-            'rel_path' => $this->rel_path,
+            'rel_path' => $this->file_url,
             'uploader_ip' => $this->uploader_ip,
             'uploader_status' => $this->uploader_status,
             'created_at' => $this->created_at,
