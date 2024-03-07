@@ -20,7 +20,8 @@ class ArticleController extends Controller
         $queryItems = $articleFilter->transform($request);
 
         $query = QueryBuilder::for(Article::class)
-            ->allowedSorts(['title', 'desc', 'image', 'created_at', 'updated_at']);
+            ->allowedSorts(['title', 'desc', 'image', 'created_at', 'updated_at'])
+            ->with('article_photo');
 
         foreach ($queryItems as $filter) {
             $query->where($filter[0], $filter[1], $filter[2]);
