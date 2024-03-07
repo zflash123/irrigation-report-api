@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\Content\ArticleController;
+use App\Http\Controllers\Content\ArticlePhotoController;
 use App\Http\Controllers\Content\ComplaintController;
 use App\Http\Controllers\Map\DistrictController;
 use App\Http\Controllers\Map\IrrigationListController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Map\SubDistrictController;
+use App\Http\Controllers\Report\CountController;
 use App\Http\Controllers\Report\ReportListController;
 use App\Http\Controllers\Report\ReportSegmentController;
 use App\Http\Controllers\Report\StatusController;
@@ -48,6 +50,14 @@ Route::prefix('article')->middleware(['api', 'auth:api'])->group(function () {
     Route::delete('/{id}', [ArticleController::class, 'destroy']);
 });
 
+Route::prefix('article-photo')->middleware(['api', 'auth:api'])->group(function () {
+    Route::get('', [ArticlePhotoController::class, 'index']);
+    Route::get('/{id}', [ArticlePhotoController::class, 'show']);
+    Route::post('', [ArticlePhotoController::class, 'store']);
+    Route::put('/{id}', [ArticlePhotoController::class, 'update']);
+    Route::delete('/{id}', [ArticlePhotoController::class, 'destroy']);
+});
+
 Route::prefix('complaint')->middleware(['api', 'auth:api'])->group(function () {
     Route::get('', [ComplaintController::class, 'index']);
     Route::get('/{id}', [ComplaintController::class, 'show']);
@@ -86,4 +96,8 @@ Route::prefix('status')->middleware(['api', 'auth:api'])->group(function () {
     Route::post('', [StatusController::class, 'store']);
     Route::put('/{id}', [StatusController::class, 'update']);
     Route::delete('/{id}', [StatusController::class, 'destroy']);
+});
+
+Route::prefix('count')->middleware(['api', 'auth:api'])->group(function () {
+    Route::get('', [CountController::class, 'index']);
 });
