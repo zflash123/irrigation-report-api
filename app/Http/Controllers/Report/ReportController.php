@@ -122,13 +122,14 @@ class ReportController extends Controller
     }
 
     function reports_by_user_id() {
-        $userId = "7dcdfaaf-a5c9-4efe-8ae2-bb3976323e16";
+        $userId = auth()->user()->id;
         $report = DB::table('report.report_list')
                     ->where('report.report_list.user_id', '=', $userId)
                     ->join('report.status', 'report.report_list.status_id', '=', 'report.status.id')
-                    ->join('map.irrigations_segment', 'report.report_list.segment_id', '=', 'map.irrigations_segment.id')
+                    ->join('report.report_segment', 'report.report_list.id', '=', 'report.report_segment.report_id')
+                    ->join('map.irrigations_segment', 'report.report_segment.segment_id', '=', 'map.irrigations_segment.id')
                     ->join('map.irrigations', 'map.irrigations_segment.irrigation_id', '=', 'map.irrigations.id')
-                    ->select('report.report_list.id', 'report.report_list.no_ticket', 'report.report_list.note', 'report.report_list.damage_severity', 'report.report_list.photo', 'report.status.name as status', 'map.irrigations.name as irrigation', 'map.irrigations.type as canal')
+                    ->select('report.report_list.id', 'report.report_list.no_ticket', 'report.report_segment.level', 'report.status.name as status', 'map.irrigations.name as irrigation', 'map.irrigations.type as canal')
                     ->get();
         return response()->json($report);
     }
