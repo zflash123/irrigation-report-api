@@ -22,7 +22,6 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $fillable = [
         'urole_id',
-        'shortname',
         'username',
         'email',
         'password',
@@ -30,7 +29,9 @@ class User extends Authenticatable implements JWTSubject
         'shortname',
         'avatar',
         'phone',
-        'status',
+        'last_active',
+        'created_at',
+        'updated_at',
     ];
 
     /**

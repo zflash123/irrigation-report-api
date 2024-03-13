@@ -5,26 +5,23 @@ namespace App\Models\Content;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model
+class ArticlePhoto extends Model
 {
     use HasFactory;
-    protected $table = 'content.article';
+    protected $table = 'content.article_photo';
     protected $keyType = 'string';
     public $incrementing = true;
 
     protected $fillable = [
-        'title',
-        'desc',
-        'image',
-        'location',
-        'author',
-        'tags',
+        'upload_dump_id',
+        'filename',
+        'file_url',
         'created_at',
         'updated_at',
     ];
 
-    public function article_photo()
+    public function article()
     {
-        return $this->hasMany(ArticlePhoto::class, 'article_id');
+        return $this->belongsTo(Article::class, 'article_id');
     }
 }

@@ -15,7 +15,7 @@ class ArticleResource extends JsonResource
     public function toArray(Request $request): array
     {
         // return parent::toArray($request);
-        return [
+        $data = [
             'id' => $this->id,
             'title' => $this->title,
             'desc' => $this->desc,
@@ -25,6 +25,15 @@ class ArticleResource extends JsonResource
             'tags' => $this->tags,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            // 'photo' => ArticlePhotoResource::collection($this->whenLoaded('photo')),
+
         ];
+
+        if ($request->has('embed') && $request->get('embed') === 'photo') {
+            $data['photo'] = ArticlePhotoResource::collection($this->article_photo);
+        }
+
+
+        return $data;
     }
 }

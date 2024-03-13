@@ -27,7 +27,7 @@ class ReportSegment extends Model
         return $this->belongsTo(ReportList::class, 'report_id');
     }
 
-    public function segment()
+    public function segmen()
     {
         return $this->belongsTo(MapSegment::class, 'segment_id');
     }

@@ -32,7 +32,7 @@ class ReportList extends Model
         return $this->belongsTo(Status::class, 'status_id');
     }
 
-    public function report_segment()
+    public function segments()
     {
         return $this->hasMany(ReportSegment::class, 'report_id');
     }

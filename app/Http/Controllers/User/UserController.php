@@ -48,8 +48,10 @@ class UserController extends Controller
                 'username' => 'required',
                 'email' => 'required|email',
                 'password' => 'required',
+                'shortname' => 'sometimes',
                 'fullname' => 'required',
                 'phone' => 'required',
+                'avatar' => 'sometimes'
             ]);
 
             $hashedPassword = Hash::make($validatedData['password']);
@@ -64,6 +66,7 @@ class UserController extends Controller
             }
 
             $user = User::create($validatedData);
+            var_dump($user);
 
             return response()->json([
                 'message' => 'User created successfully',
@@ -76,7 +79,7 @@ class UserController extends Controller
             ], 422);
         } catch (\Exception $e) {
             return response()->json([
-                'error' => 'Failed to update user',
+                'error' => 'Failed to create user',
                 'message' => $e->getMessage(),
             ], 500);
         }
@@ -97,7 +100,7 @@ class UserController extends Controller
             $validatedData = $request->validate([
                 'username' => 'string|sometimes|max:100',
                 'urole_id' => 'required',
-                'email' => 'sometimes|email|unique:user.users,email',
+                'email' => 'sometimes|email',
                 'password' => 'sometimes',
                 'fullname' => 'sometimes',
                 'avatar' => 'sometimes',

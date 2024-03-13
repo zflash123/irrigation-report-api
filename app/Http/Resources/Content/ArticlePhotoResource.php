@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\File;
+namespace App\Http\Resources\Content;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UploadDumpResource extends JsonResource
+class ArticlePhotoResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,13 +17,10 @@ class UploadDumpResource extends JsonResource
         // return parent::toArray($request);
         return [
             'id' => $this->id,
+            'article_id' => $this->article_id,
+            'upload_dump_id' => $this->upload_dump_id,
             'filename' => $this->filename,
-            'file_type' => $this->file_type,
-            'size' => $this->size,
-            'folder' => $this->folder,
-            'rel_path' => $this->file_url,
-            'uploader_ip' => $this->uploader_ip,
-            'uploader_status' => $this->uploader_status,
+            'file_url' => $this->file_url,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
