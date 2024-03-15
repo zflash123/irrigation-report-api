@@ -19,7 +19,8 @@ class ReportSegment extends Model
         'level',
         'type',
         'rate',
-        'comment'
+        'comment',
+        'note'
     ];
 
     public function report()
