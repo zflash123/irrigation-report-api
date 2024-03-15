@@ -35,7 +35,7 @@ class ReportController extends Controller
                 'no_ticket' => $no_ticket,
                 'maintenance_by' => null,
             ]);
-            $report_segment1 = $report->report_segment()->create([
+            $report_segment1 = $report->segments()->create([
                 'segment_id' => $segment_id1,
                 'level' => $level1,
                 'note' => $note1
@@ -76,7 +76,7 @@ class ReportController extends Controller
                 'upload_dump_id' => $upload_dump_id1,
             ]);
             if($segment_id2!=null){
-                $report_segment2 = $report->report_segment()->create([
+                $report_segment2 = $report->segments()->create([
                     'segment_id' => $segment_id2,
                     'level' => $level2,
                     'note' => $note2
@@ -88,7 +88,7 @@ class ReportController extends Controller
                 ]);
             }
             if($segment_id3!=null){
-                $report_segment3 = $report->report_segment()->create([
+                $report_segment3 = $report->segments()->create([
                     'segment_id' => $segment_id3,
                     'level' => $level3,
                     'note' => $note3
@@ -114,10 +114,11 @@ class ReportController extends Controller
         $report = DB::table('report.report_list')
                     ->where('report.report_list.id', '=', $id)
                     ->join('report.status', 'report.report_list.status_id', '=', 'report.status.id')
-                    ->join('map.irrigations_segment', 'report.report_list.segment_id', '=', 'map.irrigations_segment.id')
+                    ->join('report.report_segment', 'report.report_list.id', '=', 'report.report_segment.report_id')
+                    ->join('map.irrigations_segment', 'report.report_segment.segment_id', '=', 'map.irrigations_segment.id')
                     ->join('map.irrigations', 'map.irrigations_segment.irrigation_id', '=', 'map.irrigations.id')
-                    ->select('report.report_list.id', 'report.report_list.no_ticket', 'report.report_list.note', 'report.report_list.damage_severity', 'report.report_list.photo', 'report.status.name as status', 'map.irrigations.name as irrigation', 'map.irrigations.type as canal')
-                    ->first();
+                    ->select('report.report_list.id', 'report.report_list.no_ticket', 'report.report_segment.level', 'report.report_segment.note', 'report.status.name as status', 'map.irrigations.name as irrigation', 'map.irrigations.type as canal')
+                    ->get();
         return response()->json($report);
     }
 
@@ -130,6 +131,7 @@ class ReportController extends Controller
                     ->join('map.irrigations_segment', 'report.report_segment.segment_id', '=', 'map.irrigations_segment.id')
                     ->join('map.irrigations', 'map.irrigations_segment.irrigation_id', '=', 'map.irrigations.id')
                     ->select('report.report_list.id', 'report.report_list.no_ticket', 'report.report_segment.level', 'report.status.name as status', 'map.irrigations.name as irrigation', 'map.irrigations.type as canal')
+                    ->distinct('report.report_list.id')
                     ->get();
         return response()->json($report);
     }
