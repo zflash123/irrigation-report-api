@@ -33,6 +33,7 @@ Route::group(['middleware' => ['normal.user:api']], function() {
     Route::get('/user-reports', [ReportController::class, 'reports_by_user_id']);
     Route::get('/segments-by-user-id', [AppController::class, 'segments_by_user_id']);
     Route::get('/profile', [ProfileController::class, 'show_profile']);
+    Route::put('/profile', [ProfileController::class, 'edit_profile']);
 });
 
 Route::prefix('auth')->middleware('api')->group(function () {
