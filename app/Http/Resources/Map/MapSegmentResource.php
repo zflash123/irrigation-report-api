@@ -22,7 +22,7 @@ class MapSegmentResource extends JsonResource
             'irrigation_section_id' => $this->irrigation_section_id,
             'name' => $this->name,
             'length' => $this->length,
-            'center_point' => DB::selectOne('SELECT ST_AsGeoJSON(ST_Transform(geom, 4326)) as center_point FROM map.irrigations_segment WHERE id = ?', [$this->id])->center_point,
+            'center_point' => DB::selectOne('SELECT ST_AsGeoJSON(ST_Transform(center_point, 4326)) as center_point FROM map.irrigations_segment WHERE id = ?', [$this->id])->center_point,
             'geojson' => DB::selectOne('SELECT ST_AsGeoJSON(ST_Transform(geom, 4326)) as geojson FROM map.irrigations_segment WHERE id = ?', [$this->id])->geojson,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
