@@ -3,6 +3,7 @@
 use App\Http\Controllers\Content\ArticleController;
 use App\Http\Controllers\Content\ArticlePhotoController;
 use App\Http\Controllers\Content\ComplaintController;
+use App\Http\Controllers\Map\BangunanIrigasiController;
 use App\Http\Controllers\Map\DaerahIrigasiController;
 use App\Http\Controllers\Map\DistrictController;
 use App\Http\Controllers\Map\IrrigationListController;
@@ -25,6 +26,8 @@ Route::prefix('map')->middleware(['api', 'auth:api'])->group(function () {
     Route::get('irrigations/{id}', [IrrigationListController::class, 'show']);
     Route::get('daerah-irigasi', [DaerahIrigasiController::class, 'index']);
     Route::get('daerah-irigasi/{id}', [DaerahIrigasiController::class, 'show']);
+    Route::get('bangunan-irigasi', [BangunanIrigasiController::class, 'index']);
+    Route::get('bangunan-irigasi/{id}', [BangunanIrigasiController::class, 'show']);
 });
 
 Route::prefix('roles')->middleware(['api', 'auth:api'])->group(function () {
