@@ -34,6 +34,7 @@ Route::group(['middleware' => ['normal.user:api']], function() {
     Route::get('/segments-by-user-id', [AppController::class, 'segments_by_user_id']);
     Route::get('/profile', [ProfileController::class, 'show_profile']);
     Route::put('/profile', [ProfileController::class, 'edit_profile']);
+    Route::get('/check-valid-cookie', [AppController::class, 'check_valid_cookie']);
 });
 
 Route::prefix('auth')->middleware('api')->group(function () {
