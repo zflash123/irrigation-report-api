@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Map\IrrigationSectionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\User\ForgotPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,13 @@ Route::post('/register', [UserController::class, 'register']);
 
 Route::post('/login', [UserController::class, 'login']);
 
-Route::post('/reset-password', [UserController::class, 'reset_password']);
+Route::post('/forgot-password', [ForgotPasswordController::class, 'forgot_password'])->middleware('guest')->name('password.email');
+
+Route::get('/reset-password/{token}', function (string $token) {
+    return view('auth.reset-password', ['token' => $token]);
+})->middleware('guest')->name('password.reset');
+
+Route::post('/reset-password', [ForgotPasswordController::class, 'reset_password'])->middleware('guest')->name('password.update');
 
 Route::group(['middleware' => ['normal.user:api']], function() {
     Route::get('/close-segments', [AppController::class, 'close_segments']);
