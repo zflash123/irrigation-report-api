@@ -8,7 +8,9 @@ use App\Models\Report\ReportList;
 use App\Services\Report\ReportListFilter;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Validation\ValidationException;
 
 class ReportListController extends Controller
 {
@@ -56,6 +58,38 @@ class ReportListController extends Controller
         $reportListId = ReportList::findOrFail($id);
 
         return new ReportListResource($reportListId);
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $report = ReportList::findOrFail($id);
+
+            $validatedData = $request->validate([
+                'status_id' => 'required',
+                'note' => 'sometimes',
+            ]);
+
+            $maintenanceBy = Auth::id();
+            $validatedData['maintenance_by'] = $maintenanceBy;
+
+            $report->update($validatedData);
+
+            return response()->json([
+                'message' => 'Report updated successfully',
+                'data' => new ReportListResource($report),
+            ], 200);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'error' => 'Validation failed',
+                'message' => $e->errors(),
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Failed to update Report',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     public function destroy($id)
