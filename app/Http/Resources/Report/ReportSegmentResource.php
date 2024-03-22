@@ -23,7 +23,7 @@ class ReportSegmentResource extends JsonResource
             'level' => $this->level,
             'type' => $this->type,
             'rate' => $this->rate,
-            'comment' => $this->comment,
+            'note' => $this->note,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

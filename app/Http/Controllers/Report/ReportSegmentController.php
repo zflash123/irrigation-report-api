@@ -8,6 +8,7 @@ use App\Models\Report\ReportSegment;
 use App\Services\Report\ReportSegmentFilter;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Validation\ValidationException;
 
 class ReportSegmentController extends Controller
 {
@@ -51,5 +52,33 @@ class ReportSegmentController extends Controller
         $reportSegmentId = ReportSegment::findOrFail($id);
 
         return new ReportSegmentResource($reportSegmentId);
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $segment = ReportSegment::findOrFail($id);
+
+            $validatedData = $request->validate([
+                'level' => 'required',
+            ]);
+
+            $segment->update($validatedData);
+
+            return response()->json([
+                'message' => 'Segment updated successfully',
+                'data' => new ReportSegmentResource($segment),
+            ], 200);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'error' => 'Validation failed',
+                'message' => $e->errors(),
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Failed to update segment',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 }

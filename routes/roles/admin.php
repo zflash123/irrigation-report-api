@@ -7,6 +7,7 @@ use App\Http\Controllers\Map\BangunanIrigasiController;
 use App\Http\Controllers\Map\DaerahIrigasiController;
 use App\Http\Controllers\Map\DistrictController;
 use App\Http\Controllers\Map\IrrigationListController;
+use App\Http\Controllers\Map\MapSegmentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Map\SubDistrictController;
 use App\Http\Controllers\Report\CountController;
@@ -28,6 +29,7 @@ Route::prefix('map')->middleware(['api', 'auth:api'])->group(function () {
     Route::get('daerah-irigasi/{id}', [DaerahIrigasiController::class, 'show']);
     Route::get('bangunan-irigasi', [BangunanIrigasiController::class, 'index']);
     Route::get('bangunan-irigasi/{id}', [BangunanIrigasiController::class, 'show']);
+    Route::get('segment', [MapSegmentController::class, 'index']);
 });
 
 Route::prefix('roles')->middleware(['api', 'auth:api'])->group(function () {
