@@ -115,9 +115,11 @@ class ReportController extends Controller
                     ->where('report.report_list.id', '=', $id)
                     ->join('report.status', 'report.report_list.status_id', '=', 'report.status.id')
                     ->join('report.report_segment', 'report.report_list.id', '=', 'report.report_segment.report_id')
+                    ->join('report.report_photo', 'report.report_photo.report_segment_id', '=', 'report.report_segment.id')
+                    ->join('file.upload_dump', 'report.report_photo.upload_dump_id', '=', 'file.upload_dump.id')
                     ->join('map.irrigations_segment', 'report.report_segment.segment_id', '=', 'map.irrigations_segment.id')
                     ->join('map.irrigations', 'map.irrigations_segment.irrigation_id', '=', 'map.irrigations.id')
-                    ->select('report.report_list.id', 'report.report_list.no_ticket', 'report.report_segment.level', 'report.report_segment.note', 'report.status.name as status', 'map.irrigations.name as irrigation', 'map.irrigations.type as canal')
+                    ->select('report.report_list.id', 'report.report_list.no_ticket', 'report.report_segment.level', 'report.report_segment.note', 'report.status.name as status', 'map.irrigations.name as irrigation', 'map.irrigations.type as canal', 'file.upload_dump.file_url as image')
                     ->get();
         return response()->json($report);
     }
