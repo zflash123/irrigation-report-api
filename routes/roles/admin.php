@@ -14,6 +14,7 @@ use App\Http\Controllers\Report\CountController;
 use App\Http\Controllers\Report\ReportListController;
 use App\Http\Controllers\Report\ReportSegmentController;
 use App\Http\Controllers\Report\StatusController;
+use App\Http\Controllers\Spk\CriteriaController;
 use App\Http\Controllers\UploadDump\UploadDumpController;
 use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\UserController;
@@ -108,4 +109,8 @@ Route::prefix('status')->middleware(['api', 'auth:api'])->group(function () {
 
 Route::prefix('count')->middleware(['api', 'auth:api'])->group(function () {
     Route::get('', [CountController::class, 'index']);
+});
+
+Route::prefix('dss')->middleware(['api', 'auth:api'])->group(function () {
+    Route::get('', [CriteriaController::class, 'index']);
 });
