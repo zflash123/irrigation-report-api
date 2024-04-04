@@ -11,11 +11,16 @@ class ReportPhoto extends Model
     use HasFactory;
     use HasUuids;
     protected $table = 'report.report_photo';
-    
+
     protected $fillable = [
         'report_segment_id',
         'upload_dump_id',
         'filename',
         'file_url'
     ];
+
+    public function report_segment()
+    {
+        return $this->belongsTo(ReportSegment::class, 'report_segment_id');
+    }
 }

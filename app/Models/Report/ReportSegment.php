@@ -6,6 +6,7 @@ use App\Models\Map\MapSegment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ReportSegment extends Model
@@ -33,8 +34,8 @@ class ReportSegment extends Model
         return $this->belongsTo(MapSegment::class, 'segment_id');
     }
 
-    public function report_photo(): HasOne
+    public function report_photo()
     {
-        return $this->hasOne(ReportPhoto::class, 'report_segment_id');
+        return $this->hasMany(ReportPhoto::class, 'report_segment_id');
     }
 }

@@ -43,8 +43,12 @@ class ReportListResource extends JsonResource
             if (in_array('segments', $embedValues)) {
                 $segments = $this->segments->map(function ($segment) {
                     $segmentResource = new ReportSegmentResource($segment);
+                    $photoResource = new ReportPhotoResource($segment);
                     if (isset($segment->segmen)) {
                         $segmentResource->segmen = new MapSegmentResource($segment->segmen);
+                    }
+                    if (isset($segment->report_photo)) {
+                        $photoResource->report_photo = new ReportPhotoResource($segment->report_photo);
                     }
                     return $segmentResource;
                 });

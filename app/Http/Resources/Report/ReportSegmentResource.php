@@ -34,6 +34,14 @@ class ReportSegmentResource extends JsonResource
             if (in_array('segmen', $embedValues)) {
                 $data['segmen'] = new MapSegmentResource($this->segmen);
             }
+
+            if (in_array('photo', $embedValues)) {
+                $photos = $this->report_photo->map(function ($photo) {
+                    return new ReportPhotoResource($photo);
+                });
+
+                $data['photo'] = $photos->toArray();
+            }
         }
 
         return $data;
