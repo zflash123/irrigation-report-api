@@ -38,4 +38,9 @@ class ReportSegment extends Model
     {
         return $this->hasMany(ReportPhoto::class, 'report_segment_id');
     }
+
+    public function report_photo_repair()
+    {
+        return $this->hasMany(ReportPhotoRepair::class, 'report_segment_id');
+    }
 }

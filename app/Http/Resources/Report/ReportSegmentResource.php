@@ -42,6 +42,14 @@ class ReportSegmentResource extends JsonResource
 
                 $data['photo'] = $photos->toArray();
             }
+
+            if (in_array('photo_after', $embedValues)) {
+                $photos = $this->report_photo_repair->map(function ($photo) {
+                    return new ReportPhotoRepairResource($photo);
+                });
+
+                $data['photo_after'] = $photos->toArray();
+            }
         }
 
         return $data;
