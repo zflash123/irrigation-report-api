@@ -25,7 +25,7 @@ class AuthController extends Controller
         }
 
         $user_id = auth()->user()->id;
-        $customClaims = ['user' => User::where('id', $user_id)->select('id as user_id', 'email')->first()];
+        $customClaims = ['user' => User::where('id', $user_id)->select('id as user_id', 'email', 'username')->first()];
         $jwt = JWTAuth::claims($customClaims)->attempt($credentials);
 
         return $this->respondWithToken($jwt);

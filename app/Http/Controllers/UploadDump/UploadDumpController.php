@@ -27,7 +27,7 @@ class UploadDumpController extends Controller
                 'file_type',
                 'size',
                 'folder',
-                'rel_path',
+                'file_url',
                 'uploader_ip',
                 'uploader_status',
                 'created_at',
@@ -81,7 +81,7 @@ class UploadDumpController extends Controller
                 'file_type' => $file->getClientOriginalExtension(),
                 'size' => $file->getSize(),
                 'folder' => 'image',
-                'rel_path' => 'https://storage.googleapis.com/irrigation-upload-dump.appspot.com/image/' . $filename,
+                'file_url' => 'https://storage.googleapis.com/irrigation-upload-dump.appspot.com/image/' . $filename,
                 'uploader_ip' => $request->ip(),
                 'uploader_status' => true,
             ]);
@@ -131,7 +131,7 @@ class UploadDumpController extends Controller
                     'name' => 'image/' . $filename,
                 ]);
 
-                $uploadDump->rel_path =
+                $uploadDump->file_url =
                     'https://storage.googleapis.com/irrigation-upload-dump.appspot.com/image/' . $filename;
                 $uploadDump->filename = $filename;
                 $uploadDump->file_type = $file->getClientOriginalExtension();
@@ -144,7 +144,7 @@ class UploadDumpController extends Controller
                     'file_type' => $uploadDump->file_type,
                     'size' => $uploadDump->size,
                     'folder' => $uploadDump->folder,
-                    'rel_path' => $uploadDump->rel_path,
+                    'file_url' => $uploadDump->file_url,
                     'uploader_ip' => $uploadDump->uploader_ip,
                     'uploader_status' => $uploadDump->uploader_status,
                 ]);

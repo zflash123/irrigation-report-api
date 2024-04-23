@@ -31,6 +31,7 @@ Route::prefix('map')->middleware(['api', 'auth:api'])->group(function () {
     Route::get('daerah-irigasi/{id}', [DaerahIrigasiController::class, 'show']);
     Route::get('bangunan-irigasi', [BangunanIrigasiController::class, 'index']);
     Route::get('bangunan-irigasi/{id}', [BangunanIrigasiController::class, 'show']);
+    Route::put('bangunan-irigasi/{id}', [BangunanIrigasiController::class, 'update']);
     Route::get('segment', [MapSegmentController::class, 'index']);
 });
 
