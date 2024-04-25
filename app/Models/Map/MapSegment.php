@@ -23,4 +23,8 @@ class MapSegment extends Model
         'updated_at',
         'geom'
     ];
+
+    protected $casts = [
+        'length' => 'float',
+    ];
 }

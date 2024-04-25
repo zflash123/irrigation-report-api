@@ -35,6 +35,8 @@ Route::prefix('map')->middleware(['api', 'auth:api'])->group(function () {
     Route::get('segment', [MapSegmentController::class, 'index']);
 });
 
+Route::get('irrigations', [IrrigationListController::class, 'index'])->middleware(['api_key']);
+
 Route::prefix('roles')->middleware(['api', 'auth:api'])->group(function () {
     Route::get('', [RoleController::class, 'index']);
     Route::get('/{id}', [RoleController::class, 'show']);
@@ -60,6 +62,8 @@ Route::prefix('article')->middleware(['api', 'auth:api'])->group(function () {
     Route::put('/{id}', [ArticleController::class, 'update']);
     Route::delete('/{id}', [ArticleController::class, 'destroy']);
 });
+
+Route::get('users/article', [ArticleController::class, 'index'])->middleware(['api_key']);
 
 Route::prefix('article-photo')->middleware(['api', 'auth:api'])->group(function () {
     Route::get('', [ArticlePhotoController::class, 'index']);
@@ -124,3 +128,5 @@ Route::prefix('count')->middleware(['api', 'auth:api'])->group(function () {
 Route::prefix('dss')->middleware(['api', 'auth:api'])->group(function () {
     Route::get('', [CriteriaController::class, 'index']);
 });
+
+Route::get('info', [CriteriaController::class, 'index'])->middleware(['api_key']);;

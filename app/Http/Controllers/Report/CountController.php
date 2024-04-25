@@ -19,7 +19,7 @@ class CountController extends Controller
         $formattedCounts = [
             'PROG' => 0,
             'FOLUP' => 0,
-            'RJT' => 0,
+            'DONE' => 0,
         ];
 
         foreach ($statusCounts as $count) {
