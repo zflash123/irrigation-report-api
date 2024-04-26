@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\About\InfoAreaController;
 use App\Http\Controllers\Content\ArticleController;
 use App\Http\Controllers\Content\ArticlePhotoController;
 use App\Http\Controllers\Content\ComplaintController;
@@ -63,7 +64,7 @@ Route::prefix('article')->middleware(['api', 'auth:api'])->group(function () {
     Route::delete('/{id}', [ArticleController::class, 'destroy']);
 });
 
-Route::get('users/article', [ArticleController::class, 'index'])->middleware(['api_key']);
+Route::get('users-article', [ArticleController::class, 'index'])->middleware(['api_key']);
 
 Route::prefix('article-photo')->middleware(['api', 'auth:api'])->group(function () {
     Route::get('', [ArticlePhotoController::class, 'index']);
@@ -129,4 +130,4 @@ Route::prefix('dss')->middleware(['api', 'auth:api'])->group(function () {
     Route::get('', [CriteriaController::class, 'index']);
 });
 
-Route::get('info', [CriteriaController::class, 'index'])->middleware(['api_key']);;
+Route::get('info-area', [InfoAreaController::class, 'index'])->middleware(['api_key']);

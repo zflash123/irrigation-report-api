@@ -21,4 +21,8 @@ class DaerahIrigasi extends Model
         'updated_at',
         'geom',
     ];
+
+    protected $casts = [
+        'area_ha' => 'float',
+    ];
 }
