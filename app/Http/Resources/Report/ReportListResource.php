@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Report;
 
+use App\Http\Resources\Map\BangunanIrigasiResource;
 use App\Http\Resources\Map\MapSegmentResource;
 use App\Http\Resources\User\UserResource;
 use App\Models\Report\ReportSegment;
@@ -23,6 +24,7 @@ class ReportListResource extends JsonResource
             'user_id' => $this->user_id,
             'status_id' => $this->status_id,
             'no_ticket' => $this->no_ticket,
+            'type_list' => $this->type_list,
             'note' => $this->note,
             'maintenance_by' => $this->maintenance_by,
             'created_at' => $this->created_at,
@@ -57,6 +59,17 @@ class ReportListResource extends JsonResource
                     return $segmentResource;
                 });
                 $data['segments'] = $segments;
+            }
+
+            if (in_array('buildings', $embedValues)) {
+                $buildings = $this->buildings->map(function ($bangunan) {
+                    $buildingResource = new ReportBuildingResource($bangunan);
+                    if (isset($bangunan->build)) {
+                        $buildingResource->build = new MapSegmentResource($bangunan->build);
+                    }
+                    return $buildingResource;
+                });
+                $data['buildings'] = $buildings;
             }
         }
 

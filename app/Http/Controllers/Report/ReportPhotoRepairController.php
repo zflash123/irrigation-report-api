@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Report;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Report\ReportPhotoRepairResource;
 use App\Models\Report\ReportPhotoRepair;
+use App\Models\Report\ReportSegment;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class ReportPhotoRepairController extends Controller
                 'file_url' => 'required',
             ]);
 
-            $photo_repair = ReportPhotoRepair::findOrFail($validatedData['report_segment_id']);
+            $photo_repair = ReportSegment::findOrFail($validatedData['report_segment_id']);
 
             $photo_repair = ReportPhotoRepair::create($validatedData);
 

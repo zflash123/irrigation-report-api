@@ -48,13 +48,6 @@ class BangunanIrigasiController extends Controller
         } else {
             $bangunanIrigasi = $query->paginate();
         }
-        // $geojson = DB::selectOne('SELECT ST_AsGeoJSON(ST_Transform(geom, 4326)) as geojson FROM map.irrigations_building WHERE id = ?', [$item->id])->geojson;
-
-        $bangunanIrigasi->transform(function ($item) {
-            $geojson = DB::selectOne('SELECT ST_AsGeoJSON(ST_Transform(geom, 4326)) as geojson FROM map.irrigations_building WHERE id = ?', [$item->id])->geojson;
-            $item->geojson = $geojson;
-            return $item;
-        });
 
         return BangunanIrigasiResource::collection($bangunanIrigasi);
     }

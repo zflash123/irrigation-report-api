@@ -30,4 +30,14 @@ class BangunanIrigasi extends Model
         'updated_at',
         'geom'
     ];
+
+    protected $casts = [
+        'jarak' => 'float',
+        'b_saluran' => 'float',
+        'sempadan_kanan' => 'float',
+        'sempadan_kiri' => 'float',
+        'luas_saluran' => 'float',
+        'saluran_panjang_kanan' => 'float',
+        'saluran_panjang_kiri' => 'float',
+    ];
 }

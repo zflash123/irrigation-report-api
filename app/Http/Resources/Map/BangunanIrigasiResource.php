@@ -4,6 +4,7 @@ namespace App\Http\Resources\Map;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\DB;
 
 class BangunanIrigasiResource extends JsonResource
 {
@@ -33,7 +34,7 @@ class BangunanIrigasiResource extends JsonResource
             'keterangan' => $this->keterangan,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'geojson' => $this->geojson
+            'geojson' => DB::selectOne('SELECT ST_AsGeoJSON(ST_Transform(geom, 4326)) as geojson FROM map.irrigations_building WHERE id = ?', [$this->id])->geojson,
         ];
 
         return $data;

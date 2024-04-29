@@ -36,4 +36,9 @@ class ReportList extends Model
     {
         return $this->hasMany(ReportSegment::class, 'report_id');
     }
+
+    public function buildings()
+    {
+        return $this->hasMany(ReportBuilding::class, 'report_id');
+    }
 }

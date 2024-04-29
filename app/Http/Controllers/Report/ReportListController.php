@@ -21,7 +21,7 @@ class ReportListController extends Controller
 
         $query = QueryBuilder::for(ReportList::class)
             ->allowedSorts([
-                'user_id', 'status_id', 'no_ticket', 'note', 'maintenance_by', 'created_at', 'updated_at'
+                'user_id', 'status_id', 'no_ticket', 'type_list', 'note', 'maintenance_by', 'created_at', 'updated_at'
             ]);
 
         foreach ($queryItems as $filter) {

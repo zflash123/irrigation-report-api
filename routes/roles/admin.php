@@ -12,6 +12,7 @@ use App\Http\Controllers\Map\MapSegmentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Map\SubDistrictController;
 use App\Http\Controllers\Report\CountController;
+use App\Http\Controllers\Report\ReportBuildingController;
 use App\Http\Controllers\Report\ReportListController;
 use App\Http\Controllers\Report\ReportPhotoRepairController;
 use App\Http\Controllers\Report\ReportSegmentController;
@@ -104,6 +105,14 @@ Route::prefix('report-segment')->middleware(['api', 'auth:api'])->group(function
     Route::post('', [ReportSegmentController::class, 'store']);
     Route::put('/{id}', [ReportSegmentController::class, 'update']);
     Route::delete('/{id}', [ReportSegmentController::class, 'destroy']);
+});
+
+Route::prefix('report-building')->middleware(['api', 'auth:api'])->group(function () {
+    Route::get('', [ReportBuildingController::class, 'index']);
+    Route::get('/{id}', [ReportBuildingController::class, 'show']);
+    Route::post('', [ReportBuildingController::class, 'store']);
+    Route::put('/{id}', [ReportBuildingController::class, 'update']);
+    Route::delete('/{id}', [ReportBuildingController::class, 'destroy']);
 });
 
 Route::prefix('report-photo-repair')->middleware(['api', 'auth:api'])->group(function () {

@@ -10,6 +10,7 @@ class ReportListFilter extends ApiFilter
         "user_id" => ['eq', 'ne'],
         "status_id" => ['eq', 'ne'],
         "no_ticket" => ['eq', 'ne'],
+        "type_list" => ['eq', 'ne'],
         "note" => ['eq', 'ne'],
         "maintenance_by" => ['eq', 'ne'],
     ];
@@ -18,6 +19,7 @@ class ReportListFilter extends ApiFilter
         "user_id" => "user_id",
         "status_id" => "status_id",
         "no_ticket" => "no_ticket",
+        "type_list" => "type_list",
         "note" => "note",
         "maintenance_by" => "maintenance_by",
     ];
