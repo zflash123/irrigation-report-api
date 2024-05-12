@@ -2,6 +2,7 @@
 
 namespace App\Models\Map;
 
+use App\Models\File\PhotoIrrigationBuilding;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -40,4 +41,9 @@ class BangunanIrigasi extends Model
         'saluran_panjang_kanan' => 'float',
         'saluran_panjang_kiri' => 'float',
     ];
+
+    public function photo()
+    {
+        return $this->hasMany(PhotoIrrigationBuilding::class, 'building_id');
+    }
 }

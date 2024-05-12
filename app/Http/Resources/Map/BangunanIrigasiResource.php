@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Map;
 
+use App\Http\Resources\File\PhotoIrrigationBuildingResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\DB;
@@ -36,6 +37,10 @@ class BangunanIrigasiResource extends JsonResource
             'updated_at' => $this->updated_at,
             'geojson' => DB::selectOne('SELECT ST_AsGeoJSON(ST_Transform(geom, 4326)) as geojson FROM map.irrigations_building WHERE id = ?', [$this->id])->geojson,
         ];
+
+        if ($request->has('embed') && $request->get('embed') === 'photo') {
+            $data['photo'] = PhotoIrrigationBuildingResource::collection($this->photo);
+        }
 
         return $data;
     }
