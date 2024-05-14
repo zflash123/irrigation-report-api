@@ -23,6 +23,7 @@ class IrrigationListController extends Controller
             ->allowedFilters([
                 AllowedFilter::exact('district_id'),
                 AllowedFilter::exact('sub_district_id'),
+                AllowedFilter::exact('type'),
                 AllowedFilter::exact('name'),
             ]);
 
