@@ -2,6 +2,7 @@
 
 namespace App\Models\Report;
 
+use App\Models\Map\MapList;
 use App\Models\Map\MapSegment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -42,5 +43,10 @@ class ReportSegment extends Model
     public function report_photo_repair()
     {
         return $this->hasMany(ReportPhotoRepair::class, 'report_segment_id');
+    }
+
+    public function irrigation()
+    {
+        return $this->hasOneThrough(MapList::class, MapSegment::class, 'id', 'id', 'segment_id', 'irrigation_id');
     }
 }

@@ -27,6 +27,10 @@ class MapList extends Model
         'geojson'
     ];
 
+    protected $casts = [
+        'length' => 'float',
+    ];
+
     public function district()
     {
         return $this->belongsTo(District::class, 'district_id');

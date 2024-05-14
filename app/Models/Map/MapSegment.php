@@ -27,4 +27,9 @@ class MapSegment extends Model
     protected $casts = [
         'length' => 'float',
     ];
+
+    public function irrigation()
+    {
+        return $this->belongsTo(MapList::class, 'irrigation_id');
+    }
 }

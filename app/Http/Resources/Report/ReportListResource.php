@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Report;
 
 use App\Http\Resources\Map\BangunanIrigasiResource;
+use App\Http\Resources\Map\ListResource;
 use App\Http\Resources\Map\MapSegmentResource;
 use App\Http\Resources\User\UserResource;
 use App\Models\Report\ReportSegment;
@@ -31,6 +32,7 @@ class ReportListResource extends JsonResource
             'updated_at' => $this->updated_at,
         ];
 
+
         if ($request->has('embed')) {
             $embedValues = explode(',', $request->get('embed'));
 
@@ -47,8 +49,12 @@ class ReportListResource extends JsonResource
                     $segmentResource = new ReportSegmentResource($segment);
                     $photoResource = new ReportPhotoResource($segment);
                     $photoRepairResource = new ReportPhotoRepairResource($segment);
+
                     if (isset($segment->segmen)) {
                         $segmentResource->segmen = new MapSegmentResource($segment->segmen);
+                        if (isset($segment->segmen->irrigation)) {
+                            $segmentResource->segmen->irrigation = new ListResource($segment->segmen->irrigation);
+                        }
                     }
                     if (isset($segment->report_photo)) {
                         $photoResource->report_photo = new ReportPhotoResource($segment->report_photo);
