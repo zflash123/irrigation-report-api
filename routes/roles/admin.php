@@ -11,6 +11,7 @@ use App\Http\Controllers\Map\IrrigationListController;
 use App\Http\Controllers\Map\MapSegmentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Map\SubDistrictController;
+use App\Http\Controllers\Recapitulation\HomeRecapController;
 use App\Http\Controllers\Report\CountController;
 use App\Http\Controllers\Report\ReportBuildingController;
 use App\Http\Controllers\Report\ReportListController;
@@ -139,4 +140,5 @@ Route::prefix('dss')->middleware(['api', 'auth:api'])->group(function () {
     Route::get('', [CriteriaController::class, 'index']);
 });
 
+Route::get('recapitulation', [HomeRecapController::class, 'index'])->middleware(['api', 'auth:api']);
 Route::get('info-area', [InfoAreaController::class, 'index'])->middleware(['api_key']);

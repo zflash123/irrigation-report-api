@@ -74,14 +74,17 @@ class UploadDumpController extends Controller
 
             $bucket->upload(fopen($file->getPathname(), 'r'), [
                 'name' => 'image/' . $filename,
+                'predefinedAcl' => 'publicRead'
             ]);
+
+            $imageUrl = 'https://storage.googleapis.com/irrigation-upload-dump.appspot.com/image/' . $filename;
 
             $uploadDump = UploadDump::create([
                 'filename' => $filename,
                 'file_type' => $file->getClientOriginalExtension(),
                 'size' => $file->getSize(),
                 'folder' => 'image',
-                'file_url' => 'https://storage.googleapis.com/irrigation-upload-dump.appspot.com/image/' . $filename,
+                'file_url' => $imageUrl,
                 'uploader_ip' => $request->ip(),
                 'uploader_status' => true,
             ]);
