@@ -70,9 +70,16 @@ class ReportListResource extends JsonResource
             if (in_array('buildings', $embedValues)) {
                 $buildings = $this->buildings->map(function ($bangunan) {
                     $buildingResource = new ReportBuildingResource($bangunan);
+                    $photoRepairBuildingResource = new ReportPhotoRepairBuildingResource($bangunan);
+
                     if (isset($bangunan->build)) {
                         $buildingResource->build = new MapSegmentResource($bangunan->build);
                     }
+
+                    if (isset($bangunan->report_photo_repair_building)) {
+                        $photoRepairBuildingResource->report_photo_repair_building = new ReportPhotoRepairBuildingResource($bangunan->report_photo_repair_building);
+                    }
+
                     return $buildingResource;
                 });
                 $data['buildings'] = $buildings;

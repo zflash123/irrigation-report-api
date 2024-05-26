@@ -3,32 +3,32 @@
 namespace App\Http\Controllers\Report;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Report\ReportPhotoRepairResource;
-use App\Models\Report\ReportPhotoRepair;
-use App\Models\Report\ReportSegment;
+use App\Http\Resources\Report\ReportPhotoRepairBuildingResource;
+use App\Models\Report\ReportBuilding;
+use App\Models\Report\ReportPhotoRepairBuilding;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 
-class ReportPhotoRepairController extends Controller
+class ReportPhotoRepairBuildingController extends Controller
 {
     public function store(Request $request)
     {
         try {
             $validatedData = $request->validate([
-                'report_segment_id' => 'required',
+                'report_building_id' => 'required',
                 'upload_dump_id' => 'required',
                 'filename' => 'required',
                 'file_url' => 'required',
             ]);
 
-            $photo_repair = ReportSegment::findOrFail($validatedData['report_segment_id']);
+            $photo_repair = ReportBuilding::findOrFail($validatedData['report_building_id']);
 
-            $photo_repair = ReportPhotoRepair::create($validatedData);
+            $photo_repair = ReportPhotoRepairBuilding::create($validatedData);
 
             return response()->json([
                 'message' => 'Photo Photo Repair created successfully',
-                'data' => new ReportPhotoRepairResource(($photo_repair)),
+                'data' => new ReportPhotoRepairBuildingResource(($photo_repair)),
             ], 201);
         } catch (ModelNotFoundException $e) {
             return response()->json([
@@ -51,20 +51,20 @@ class ReportPhotoRepairController extends Controller
     public function destroy($id)
     {
         try {
-            $role = ReportPhotoRepair::findOrFail($id);
+            $role = ReportPhotoRepairBuilding::findOrFail($id);
             $role->delete();
 
             return response()->json([
-                'message' => 'ReportPhotoRepair deleted successfully',
+                'message' => 'ReportPhotoRepairBuilding deleted successfully',
             ], 200);
         } catch (ModelNotFoundException $e) {
             return response()->json([
-                'error' => 'ReportPhotoRepair not found with provided ID',
+                'error' => 'ReportPhotoRepairBuilding not found with provided ID',
                 'message' => $e->getMessage(),
             ], 404);
         } catch (\Exception $e) {
             return response()->json([
-                'error' => 'Failed to delete ReportPhotoRepair',
+                'error' => 'Failed to delete ReportPhotoRepairBuilding',
                 'message' => $e->getMessage(),
             ], 500);
         }

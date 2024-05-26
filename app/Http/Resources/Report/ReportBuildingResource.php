@@ -34,6 +34,22 @@ class ReportBuildingResource extends JsonResource
             if (in_array('building_details', $embedValues)) {
                 $data['irrigations_building'] = new BangunanIrigasiResource($this->build);
             }
+
+            if (in_array('photo', $embedValues)) {
+                $photos = $this->report_photo_building->map(function ($photo) {
+                    return new ReportPhotoResource($photo);
+                });
+
+                $data['photo'] = $photos->toArray();
+            }
+
+            if (in_array('photo_after', $embedValues)) {
+                $photos = $this->report_photo_repair_building->map(function ($photo) {
+                    return new ReportPhotoRepairBuildingResource($photo);
+                });
+
+                $data['photo_after'] = $photos->toArray();
+            }
         }
 
         return $data;

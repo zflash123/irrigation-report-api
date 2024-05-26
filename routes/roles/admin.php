@@ -15,6 +15,7 @@ use App\Http\Controllers\Recapitulation\HomeRecapController;
 use App\Http\Controllers\Report\CountController;
 use App\Http\Controllers\Report\ReportBuildingController;
 use App\Http\Controllers\Report\ReportListController;
+use App\Http\Controllers\Report\ReportPhotoRepairBuildingController;
 use App\Http\Controllers\Report\ReportPhotoRepairController;
 use App\Http\Controllers\Report\ReportSegmentController;
 use App\Http\Controllers\Report\StatusController;
@@ -122,6 +123,14 @@ Route::prefix('report-photo-repair')->middleware(['api', 'auth:api'])->group(fun
     Route::post('', [ReportPhotoRepairController::class, 'store']);
     Route::put('/{id}', [ReportPhotoRepairController::class, 'update']);
     Route::delete('/{id}', [ReportPhotoRepairController::class, 'destroy']);
+});
+
+Route::prefix('report-photo-repair-building')->middleware(['api', 'auth:api'])->group(function () {
+    Route::get('', [ReportPhotoRepairBuildingController::class, 'index']);
+    Route::get('/{id}', [ReportPhotoRepairBuildingController::class, 'show']);
+    Route::post('', [ReportPhotoRepairBuildingController::class, 'store']);
+    Route::put('/{id}', [ReportPhotoRepairBuildingController::class, 'update']);
+    Route::delete('/{id}', [ReportPhotoRepairBuildingController::class, 'destroy']);
 });
 
 Route::prefix('status')->middleware(['api', 'auth:api'])->group(function () {

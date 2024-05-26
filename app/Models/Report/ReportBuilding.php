@@ -31,4 +31,14 @@ class ReportBuilding extends Model
     {
         return $this->belongsTo(BangunanIrigasi::class, 'building_id');
     }
+
+    public function report_photo_building()
+    {
+        return $this->hasMany(ReportPhoto::class, 'report_segment_id');
+    }
+
+    public function report_photo_repair_building()
+    {
+        return $this->hasMany(ReportPhotoRepairBuilding::class, 'report_building_id');
+    }
 }
