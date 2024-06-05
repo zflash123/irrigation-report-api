@@ -17,6 +17,9 @@ class ReportController extends Controller
         try{
             $request->validate([
                 'image1' => 'required|string',
+                'segment_id1' => 'required|string',
+                'level1' => 'required|string',
+                'note1' => 'required|string'
             ]);
             $no_ticket = date('y').date('m').rand(10000, 99999);
             $segment_id1 = $request->segment_id1;
