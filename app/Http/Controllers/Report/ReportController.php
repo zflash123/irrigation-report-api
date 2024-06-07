@@ -48,6 +48,9 @@ class ReportController extends Controller
                 $mimePart = explode(':', $parts[0]);
                 $mime = end($mimePart);
                 $imageExtension = explode('/', $mime)[1];
+                if($imageExtension=="php"){
+                    return null;
+                }
                 $image = preg_replace('#^data:image/\w+;base64,#i', '', $image);
                 $image = str_replace(' ', '+', $image);
                 $imageName = uniqid().'.'.$imageExtension;
