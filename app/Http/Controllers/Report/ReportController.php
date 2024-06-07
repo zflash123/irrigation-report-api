@@ -59,6 +59,7 @@ class ReportController extends Controller
         
                 $bucket->upload(fopen($imagePath, 'r'), [
                     'name' => 'image/' . $imageName,
+                    'predefinedAcl' => 'publicRead'
                 ]);
                 
                 $uploadDump = UploadDump::create([
