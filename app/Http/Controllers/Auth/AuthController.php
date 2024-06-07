@@ -39,7 +39,7 @@ class AuthController extends Controller
             'email' => 'required',
             'password' => 'required',
             'fullname' => 'required',
-            'phone' => 'required',
+            'phone' => 'nullable',
         ]);
 
         if ($validator->fails()) {
