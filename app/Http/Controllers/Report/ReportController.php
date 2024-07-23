@@ -151,7 +151,7 @@ class ReportController extends Controller
                         ->join('report.report_segment', 'report.report_list.id', '=', 'report.report_segment.report_id')
                         ->join('map.irrigations_segment', 'report.report_segment.segment_id', '=', 'map.irrigations_segment.id')
                         ->join('map.irrigations', 'map.irrigations_segment.irrigation_id', '=', 'map.irrigations.id')
-                        ->select('report.report_list.id', 'report.report_list.no_ticket', 'report.report_segment.level', 'report.status.name as status', 'map.irrigations.name as irrigation', 'map.irrigations.type as canal')
+                        ->select('report.report_list.id', 'report.report_list.no_ticket', 'report.report_list.created_at', 'report.report_list.done_at', 'report.report_segment.level', 'report.status.name as status', 'map.irrigations.name as irrigation', 'map.irrigations.type as canal')
                         ->distinct('report.report_list.id')
                         ->get();
             return response()->json($report);
@@ -163,7 +163,7 @@ class ReportController extends Controller
                         ->join('report.report_segment', 'report.report_list.id', '=', 'report.report_segment.report_id')
                         ->join('map.irrigations_segment', 'report.report_segment.segment_id', '=', 'map.irrigations_segment.id')
                         ->join('map.irrigations', 'map.irrigations_segment.irrigation_id', '=', 'map.irrigations.id')
-                        ->select('report.report_list.id', 'report.report_list.no_ticket', 'report.report_segment.level', 'report.status.name as status', 'map.irrigations.name as irrigation', 'map.irrigations.type as canal')
+                        ->select('report.report_list.id', 'report.report_list.no_ticket', 'report.report_list.created_at', 'report.report_list.done_at', 'report.report_segment.level', 'report.status.name as status', 'map.irrigations.name as irrigation', 'map.irrigations.type as canal')
                         ->distinct('report.report_list.id')
                         ->get();
             return response()->json($report);
@@ -174,7 +174,7 @@ class ReportController extends Controller
                         ->join('report.report_segment', 'report.report_list.id', '=', 'report.report_segment.report_id')
                         ->join('map.irrigations_segment', 'report.report_segment.segment_id', '=', 'map.irrigations_segment.id')
                         ->join('map.irrigations', 'map.irrigations_segment.irrigation_id', '=', 'map.irrigations.id')
-                        ->select('report.report_list.id', 'report.report_list.no_ticket', 'report.report_segment.level', 'report.status.name as status', 'map.irrigations.name as irrigation', 'map.irrigations.type as canal')
+                        ->select('report.report_list.id', 'report.report_list.no_ticket', 'report.report_list.created_at', 'report.report_list.done_at', 'report.report_segment.level', 'report.status.name as status', 'map.irrigations.name as irrigation', 'map.irrigations.type as canal')
                         ->distinct('report.report_list.id')
                         ->get();
             return response()->json($report);
@@ -186,7 +186,7 @@ class ReportController extends Controller
                         ->join('report.report_segment', 'report.report_list.id', '=', 'report.report_segment.report_id')
                         ->join('map.irrigations_segment', 'report.report_segment.segment_id', '=', 'map.irrigations_segment.id')
                         ->join('map.irrigations', 'map.irrigations_segment.irrigation_id', '=', 'map.irrigations.id')
-                        ->select('report.report_list.id', 'report.report_list.no_ticket', 'report.report_segment.level', 'report.status.name as status', 'map.irrigations.name as irrigation', 'map.irrigations.type as canal')
+                        ->select('report.report_list.id', 'report.report_list.no_ticket', 'report.report_list.created_at', 'report.report_list.done_at', 'report.report_segment.level', 'report.status.name as status', 'map.irrigations.name as irrigation', 'map.irrigations.type as canal')
                         ->distinct('report.report_list.id')
                         ->get();
             return response()->json($report);
