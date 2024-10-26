@@ -15,6 +15,8 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+        if(auth()->user()){
+            return $next($request);
+        }
     }
 }
