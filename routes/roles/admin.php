@@ -50,7 +50,7 @@ Route::prefix('roles')->middleware(['api', 'admin:api'])->group(function () {
     Route::delete('', [RoleController::class, 'deleteAll']);
 });
 
-Route::prefix('users')->middleware(['api', 'auth:api'])->group(function () {
+Route::prefix('users')->middleware(['api', 'admin:api'])->group(function () {
     Route::get('', [UserController::class, 'index']);
     Route::get('/{id}', [UserController::class, 'show']);
     Route::post('', [UserController::class, 'store']);
