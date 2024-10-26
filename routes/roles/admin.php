@@ -59,7 +59,7 @@ Route::prefix('users')->middleware(['api', 'auth:api'])->group(function () {
     Route::delete('change-password/{id}', [UserController::class, 'change_password']);
 });
 
-Route::prefix('article')->middleware(['api', 'auth:api'])->group(function () {
+Route::prefix('article')->middleware(['api', 'admin:api'])->group(function () {
     Route::get('', [ArticleController::class, 'index']);
     Route::get('/{id}', [ArticleController::class, 'show']);
     Route::post('', [ArticleController::class, 'store']);
