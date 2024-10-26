@@ -41,7 +41,7 @@ Route::prefix('map')->middleware(['api', 'admin:api'])->group(function () {
 
 Route::get('irrigations', [IrrigationListController::class, 'index'])->middleware(['api_key']);
 
-Route::prefix('roles')->middleware(['api', 'auth:api'])->group(function () {
+Route::prefix('roles')->middleware(['api', 'admin:api'])->group(function () {
     Route::get('', [RoleController::class, 'index']);
     Route::get('/{id}', [RoleController::class, 'show']);
     Route::post('', [RoleController::class, 'store']);
