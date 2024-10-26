@@ -24,7 +24,7 @@ use App\Http\Controllers\UploadDump\UploadDumpController;
 use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\UserController;
 
-Route::prefix('map')->middleware(['api', 'auth:api'])->group(function () {
+Route::prefix('map')->middleware(['api', 'admin:api'])->group(function () {
     Route::get('sub-district', [SubDistrictController::class, 'index']);
     Route::get('sub-district/{id}', [SubDistrictController::class, 'show']);
     Route::get('district', [DistrictController::class, 'index']);
