@@ -15,7 +15,7 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->user()){
+        if(auth()->user() && auth()->user()->urole_id == env('ADMIN_ID')){
             return $next($request);
         }
     }
